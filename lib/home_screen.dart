@@ -94,7 +94,7 @@ class _HomescreenState extends State<Homescreen> {
                     ],
                   ),
                 ),
-                mspacer(height: 20)
+                mspacer(height: 40)
               ],
             ),
           ),
