@@ -17,10 +17,12 @@ class _HomescreenState extends State<Homescreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          leading: Icon(
-            Icons.menu,
-            color: Colors.grey.shade500,
-          ),
+          iconTheme: IconThemeData(color: Colors.grey.shade400),
+          // leading: Icon(
+          //   Icons.menu,
+          //   color: Colors.grey.shade500,
+          // ),
+
           title: Row(
             children: [
               Image(
@@ -37,6 +39,12 @@ class _HomescreenState extends State<Homescreen> {
             ],
           ),
           backgroundColor: Appcolors.black_color,
+        ),
+        drawer: Drawer(
+          backgroundColor: Colors.white,
+          child: Container(
+            color: Colors.black,
+          ),
         ),
         backgroundColor: Appcolors.black_color,
         body: SingleChildScrollView(
