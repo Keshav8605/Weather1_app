@@ -18,6 +18,7 @@ class _HomescreenState extends State<Homescreen> {
       home: Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: Colors.grey.shade400),
+
           // leading: Icon(
           //   Icons.menu,
           //   color: Colors.grey.shade500,
@@ -38,7 +39,7 @@ class _HomescreenState extends State<Homescreen> {
               ),
             ],
           ),
-          backgroundColor: Appcolors.black_color,
+          backgroundColor: Color(0xFF020B13),
         ),
         drawer: Drawer(
           backgroundColor: Colors.white,
@@ -47,66 +48,76 @@ class _HomescreenState extends State<Homescreen> {
           ),
         ),
         backgroundColor: Appcolors.black_color,
-        body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  textAlign: TextAlign.start,
-                  'Today\'s Forecast',
-                  style: subheading_(),
-                ),
-                mspacer(),
-                main_container(context: context),
-                mspacer(),
-                Text(
-                  textAlign: TextAlign.start,
-                  '7 day\'s Forecast',
-                  style: subheading_(),
-                ),
-                mspacer(),
-                main_container2(
-                    context: context,
-                    s: '360_F_920272903_eDoUPzq2jROHvtVpKHG1IXhx6BTVsmvj.jpg'),
-                mspacer(),
-                Text(
-                  textAlign: TextAlign.start,
-                  'Today\'s Highlight',
-                  style: subheading_(),
-                ),
-                mspacer(),
-                SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      sub_conatiner(
-                        context: context,
-                        upcont: 'Wind Status',
-                        lowcont: 'Humidity',
-                      ),
-                      mspacer(width: 15),
-                      sub_conatiner(
-                          upcont: 'UV Index',
-                          lowcont: 'Visibility',
-                          context: context),
-                      mspacer(width: 15),
-                      sub_conatiner(
-                        upcont: 'Sunrise & Sunset',
-                        lowcont: 'Feels like',
-                        context: context,
-                      ),
-                    ],
+        body: Stack(children: [
+          Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    opacity: 0.2,
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                        'images/twillight-sky-blurred-background-ai-generated-photo (1).jpg'))),
+          ),
+          SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    textAlign: TextAlign.start,
+                    'Today\'s Forecast',
+                    style: subheading_(),
                   ),
-                ),
-                mspacer(height: 40)
-              ],
+                  mspacer(),
+                  main_container(context: context),
+                  mspacer(),
+                  Text(
+                    textAlign: TextAlign.start,
+                    '7 day\'s Forecast',
+                    style: subheading_(),
+                  ),
+                  mspacer(),
+                  main_container2(
+                      context: context,
+                      s: '360_F_920272903_eDoUPzq2jROHvtVpKHG1IXhx6BTVsmvj.jpg'),
+                  mspacer(),
+                  Text(
+                    textAlign: TextAlign.start,
+                    'Today\'s Highlight',
+                    style: subheading_(),
+                  ),
+                  mspacer(),
+                  SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        sub_conatiner(
+                          context: context,
+                          upcont: 'Wind Status',
+                          lowcont: 'Humidity',
+                        ),
+                        mspacer(width: 15),
+                        sub_conatiner(
+                            upcont: 'UV Index',
+                            lowcont: 'Visibility',
+                            context: context),
+                        mspacer(width: 15),
+                        sub_conatiner(
+                          upcont: 'Sunrise & Sunset',
+                          lowcont: 'Feels like',
+                          context: context,
+                        ),
+                      ],
+                    ),
+                  ),
+                  mspacer(height: 40)
+                ],
+              ),
             ),
           ),
-        ),
+        ]),
       ),
     );
   }

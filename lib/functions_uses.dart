@@ -48,8 +48,9 @@ Container main_container({
   return Container(
     padding: EdgeInsets.fromLTRB(20, 9, 30, 40),
     decoration: BoxDecoration(
-      color: color,
+      color: Color(0xFF243B48).withOpacity(0.6),
       image: DecorationImage(
+        opacity: 1,
         image: AssetImage('images/$s'),
         fit: BoxFit.cover,
       ),
