@@ -2,6 +2,78 @@ import 'package:flutter/material.dart';
 import 'colors_.dart';
 import 'package:lottie/lottie.dart';
 
+Container hourly_forecastcont({
+  required BuildContext context,
+}) {
+  double size = MediaQuery.of(context).size.width * 0.95;
+
+  return Container(
+    margin: EdgeInsets.all(size / 140),
+    padding: EdgeInsets.all(size / 60),
+    width: size / 6,
+    height: size / 4,
+    decoration: BoxDecoration(
+        color: Color(0XFFBABABA).withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('NOW',
+            style: heading_(fontSize: size / 45, fontWeight: FontWeight.w900)),
+        Image(
+          image: AssetImage('images/—Pngtree—sunny icon_4499465.png'),
+          width: size / 8.8,
+        ),
+        Text('SUNNY',
+            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w300)),
+        Text.rich(TextSpan(
+          text: '28',
+          style: heading_(fontSize: size / 31, color: Colors.white),
+          children: <TextSpan>[
+            TextSpan(text: '°C', style: heading_(fontSize: size / 49)),
+          ],
+        )),
+      ],
+    ),
+  );
+}
+
+Container weeky_forecastcont({
+  required BuildContext context,
+}) {
+  double size = MediaQuery.of(context).size.width * 0.95;
+
+  return Container(
+    margin: EdgeInsets.all(size / 140),
+    padding: EdgeInsets.all(size / 60),
+    width: size / 6,
+    height: size / 4,
+    decoration: BoxDecoration(
+        color: Color(0XFFBABABA).withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20)),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('TUE',
+            style: heading_(fontSize: size / 45, fontWeight: FontWeight.w900)),
+        Image(
+          image: AssetImage('images/—Pngtree—sunny icon_4499465.png'),
+          width: size / 8.8,
+        ),
+        Text('SUNNY',
+            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w300)),
+        Text.rich(TextSpan(
+          text: '28',
+          style: heading_(fontSize: size / 31, color: Colors.white),
+          children: <TextSpan>[
+            TextSpan(text: '°C', style: heading_(fontSize: size / 49)),
+          ],
+        )),
+      ],
+    ),
+  );
+}
+
 TextStyle heading_({
   double fontSize = 18,
   FontWeight fontWeight = FontWeight.bold,
@@ -41,7 +113,6 @@ Container main_container({
   required BuildContext context, // ✅ Add this line
   double borderradius = 60,
   double width = double.infinity,
-  Color color = Colors.white,
   String s = 'photo-1478760329108-5c3ed9d495a0.avif',
 }) {
   double size = MediaQuery.of(context).size.width * 0.95;
