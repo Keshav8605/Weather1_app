@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather_app/colors_.dart';
 import 'package:weather_app/functions_uses.dart';
 
@@ -124,7 +125,174 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  mspacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('WIND STATUS',
+                          style: heading_(
+                              fontSize: size / 20, color: Color(0xffBAEDFF))),
+                    ],
+                  ),
+                  mspacer(height: 5),
+                  Container(
+                      width: size,
+                      height: size / 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(size / 13),
+                          color: Color(0xff838383).withOpacity(0.2)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('WIND SPEED',
+                                  style: heading_(
+                                      fontSize: size / 26,
+                                      fontWeight: FontWeight.w100)),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                textBaseline: TextBaseline.alphabetic,
+                                children: [
+                                  Text('25',
+                                      style: heading_(
+                                          fontSize: size / 10,
+                                          color: Color(0xffC4FFFE),
+                                          fontWeight: FontWeight.w900)),
+                                  Text('km/hr',
+                                      style: heading_(
+                                          color: Color(0xffC4FFFE),
+                                          fontSize: size / 25,
+                                          fontWeight: FontWeight.w100)),
+                                ],
+                              ),
+                            ],
+                          ),
+                          mspacer(width: 5),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('WIND DIRECTION',
+                                  style: heading_(
+                                      fontSize: size / 26,
+                                      fontWeight: FontWeight.w100)),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                textBaseline: TextBaseline.alphabetic,
+                                children: [
+                                  Image.asset(
+                                    'images/pngegg (5).png',
+                                    width: size / 7,
+                                  ),
+                                  Text('NE',
+                                      style: heading_(
+                                          fontSize: size / 10,
+                                          color: Color(0xffC4FFFE),
+                                          fontWeight: FontWeight.w900)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      )),
+                  mspacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text('SUNRISE & SUNSET',
+                          style: heading_(
+                              fontSize: size / 20, color: Color(0xffFFFEB8))),
+                    ],
+                  ),
+                  mspacer(height: 5),
+                  Container(
+                      width: size,
+                      height: size / 2,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(size / 13),
+                          color: Color(0xff838383).withOpacity(0.2)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('SUNRISE',
+                                  style: heading_(
+                                      fontSize: size / 26,
+                                      fontWeight: FontWeight.w100)),
+                              Lottie.asset('assets/animations/sunrise.json',
+                                  width: size / 6, fit: BoxFit.cover),
+                              Text('7:00 AM',
+                                  style: heading_(
+                                      fontSize: size / 18,
+                                      fontWeight: FontWeight.w900)),
+                            ],
+                          ),
+                          mspacer(width: 5),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text('SUNSET',
+                                  style: heading_(
+                                      fontSize: size / 26,
+                                      fontWeight: FontWeight.w100)),
+                              Lottie.asset('assets/animations/sunset.json',
+                                  width: size / 6, fit: BoxFit.cover),
+                              Text('6:45 PM',
+                                  style: heading_(
+                                      fontSize: size / 18,
+                                      fontWeight: FontWeight.w900)),
+                            ],
+                          ),
+                        ],
+                      )),
+                  mspacer(),
+                  Container(
+                    width: size,
+                    height: size / 4,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(size / 13),
+                        color: Color(0xff838383).withOpacity(0.2)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text('WIND SPEED',
+                            style: heading_(
+                                fontSize: size / 26,
+                                fontWeight: FontWeight.w100)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('12',
+                                style: heading_(
+                                    fontSize: size / 13,
+                                    fontWeight: FontWeight.w900)),
+                            Text('hr',
+                                style: heading_(
+                                    fontSize: size / 13,
+                                    fontWeight: FontWeight.w100)),
+                            mspacer(width: 5),
+                            Text('45',
+                                style: heading_(
+                                    fontSize: size / 13,
+                                    fontWeight: FontWeight.w900)),
+                            Text('min',
+                                style: heading_(
+                                    fontSize: size / 13,
+                                    fontWeight: FontWeight.w100)),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             )

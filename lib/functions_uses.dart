@@ -612,16 +612,22 @@ Widget getupcontdata(
   double size = MediaQuery.of(context).size.width * 0.95;
   if (head == 'Wind Status') {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          head,
-          style: subheading_(
-              fontSize: size / 27,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade400),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              head,
+              style: subheading_(
+                  fontSize: size / 27,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade400),
+            ),
+          ],
         ),
+        Lottie.asset('assets/animations/Wind status.json', width: size / 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -658,16 +664,24 @@ Widget getupcontdata(
     );
   } else if (head == 'UV Index') {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          head,
-          style: subheading_(
-              fontSize: size / 27,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade400),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              head,
+              style: subheading_(
+                  fontSize: size / 27,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade400),
+            ),
+          ],
         ),
+        Lottie.asset('assets/animations/uv index graph 2.json',
+            width: size / 1.82),
+        mspacer(height: 7, width: 1),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -692,27 +706,34 @@ Widget getupcontdata(
     );
   } else {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          head,
-          style: subheading_(
-              fontSize: size / 27,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade400),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              head,
+              style: subheading_(
+                  fontSize: size / 27,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade400),
+            ),
+          ],
         ),
+        Lottie.asset('assets/animations/sun moving in sky .json',
+            width: size / 2.08),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.sunny,
-                  color: Colors.grey.shade400,
-                  size: size / 20,
-                ),
+                // Icon(
+                //   Icons.sunny,
+                //   color: Colors.grey.shade400,
+                //   size: size / 20,
+                // ),
                 Text(
                   'Sunrise',
                   style: subheading_(
@@ -732,11 +753,11 @@ Widget getupcontdata(
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Icon(
-                  Icons.sunny_snowing,
-                  color: Colors.grey.shade400,
-                  size: size / 20,
-                ),
+                // Icon(
+                //   Icons.sunny_snowing,
+                //   color: Colors.grey.shade400,
+                //   size: size / 20,
+                // ),
                 Text(
                   'Sunset',
                   style: subheading_(
