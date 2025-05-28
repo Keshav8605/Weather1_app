@@ -3,7 +3,7 @@ import 'home_screen.dart';
 import 'Details_Screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +11,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Homescreen();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Homescreen(), // Initial screen
+    );
   }
 }

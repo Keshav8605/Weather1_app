@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   lottie: ^2.6.0
   fl_chart: ^0.70.2
+  another_flushbar: ^1.10.30
 
 dev_dependencies:
   flutter_test:

@@ -450,7 +450,7 @@ Container sub_conatiner(
         // image:
         //     DecorationImage(image: AssetImage('images/$s'), fit: BoxFit.cover),
 
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(size / 7)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -467,8 +467,8 @@ Container sub_conatiner(
                   bottomLeft: Radius.circular(size / 18),
                   bottomRight: Radius.circular(size / 18),
                 ),
-                color: Colors.transparent,
-                // color: Colors.white.withOpacity(0.1),
+
+                color: Colors.white.withOpacity(0.1),
                 //color: Colors.black.withOpacity(0.3),
               ),
               width: double.infinity,
