@@ -13,33 +13,46 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.width * 0.95;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.grey.shade400),
+          iconTheme: IconThemeData(color: Colors.white),
 
           // leading: Icon(
           //   Icons.menu,
           //   color: Colors.grey.shade500,
           // ),
 
-          title: Row(
-            children: [
-              Image(
-                image: AssetImage('images/weather_5464289.png'),
-                width: 30,
+          title:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              children: [
+                Image(
+                  image: AssetImage('images/weather_5464289.png'),
+                  width: size / 10,
+                ),
+                SizedBox(
+                  width: size / 80,
+                ),
+                Text(
+                  'Weathery',
+                  style: heading_(fontWeight: FontWeight.w100),
+                ),
+              ],
+            ),
+            CircleAvatar(
+              radius: size / 16,
+              backgroundColor: Colors.white12,
+              child: Icon(
+                size: size / 15,
+                Icons.search,
+                color: Colors.white,
               ),
-              SizedBox(
-                width: 7,
-              ),
-              Text(
-                'Weathery',
-                style: heading_(fontWeight: FontWeight.w100),
-              ),
-            ],
-          ),
-          backgroundColor: Color(0xFF020B13),
+            ),
+          ]),
+          backgroundColor: Color(0xFF02101B),
         ),
         drawer: Drawer(
           backgroundColor: Colors.white,
@@ -47,12 +60,13 @@ class _HomescreenState extends State<Homescreen> {
             color: Colors.black,
           ),
         ),
-        backgroundColor: Appcolors.black_color,
+        backgroundColor: Color(0XFF000F18),
         body: Stack(children: [
           Container(
             decoration: BoxDecoration(
+                color: Color(0XFF000F18),
                 image: DecorationImage(
-                    opacity: 0.2,
+                    opacity: 0.45,
                     fit: BoxFit.cover,
                     image: AssetImage(
                         'images/twillight-sky-blurred-background-ai-generated-photo (1).jpg'))),
@@ -64,6 +78,7 @@ class _HomescreenState extends State<Homescreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  mspacer(),
                   Text(
                     textAlign: TextAlign.start,
                     'Today\'s Forecast',
@@ -71,7 +86,7 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                   mspacer(),
                   main_container(context: context),
-                  mspacer(),
+                  mspacer(height: size / 20),
                   Text(
                     textAlign: TextAlign.start,
                     '7 day\'s Forecast',
@@ -79,8 +94,8 @@ class _HomescreenState extends State<Homescreen> {
                   ),
                   mspacer(),
                   main_container2(
-                      context: context,
-                      s: '360_F_920272903_eDoUPzq2jROHvtVpKHG1IXhx6BTVsmvj.jpg'),
+                    context: context,
+                  ),
                   mspacer(),
                   Text(
                     textAlign: TextAlign.start,

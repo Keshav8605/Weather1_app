@@ -10,8 +10,8 @@ Container hourly_forecastcont({
   return Container(
     margin: EdgeInsets.all(size / 140),
     padding: EdgeInsets.all(size / 60),
-    width: size / 6,
-    height: size / 4,
+    width: size / 5,
+    height: size / 3.5,
     decoration: BoxDecoration(
         color: Color(0XFFBABABA).withOpacity(0.4),
         borderRadius: BorderRadius.circular(20)),
@@ -19,20 +19,38 @@ Container hourly_forecastcont({
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text('NOW',
-            style: heading_(fontSize: size / 45, fontWeight: FontWeight.w900)),
+            style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
-          image: AssetImage('images/—Pngtree—sunny icon_4499465.png'),
-          width: size / 8.8,
+          image: AssetImage('images/—Pngtree—sunny icon_4499465 - Copy.png'),
+          width: size / 12,
         ),
         Text('SUNNY',
-            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w300)),
-        Text.rich(TextSpan(
-          text: '28',
-          style: heading_(fontSize: size / 31, color: Colors.white),
-          children: <TextSpan>[
-            TextSpan(text: '°C', style: heading_(fontSize: size / 49)),
+            style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '28',
+              style: heading_(
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width *
+                    0.0085, // adjust top padding
+              ),
+              child: Text(
+                '°C',
+                style: heading_(
+                  fontSize:
+                      MediaQuery.of(context).size.width * 0.028, // smaller font
+                ),
+              ),
+            ),
           ],
-        )),
+        ),
       ],
     ),
   );
@@ -46,29 +64,48 @@ Container weeky_forecastcont({
   return Container(
     margin: EdgeInsets.all(size / 140),
     padding: EdgeInsets.all(size / 60),
-    width: size / 6,
-    height: size / 4,
+    width: size / 5,
+    height: size / 3.5,
     decoration: BoxDecoration(
         color: Color(0XFFBABABA).withOpacity(0.4),
         borderRadius: BorderRadius.circular(20)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text('TUE',
-            style: heading_(fontSize: size / 45, fontWeight: FontWeight.w900)),
+        Text('NOW',
+            style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
-          image: AssetImage('images/—Pngtree—sunny icon_4499465.png'),
-          width: size / 8.8,
+          image: AssetImage(
+              'images/vecteezy_3d-illustration-of-cloud_18780213.png'),
+          width: size / 12,
         ),
         Text('SUNNY',
-            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w300)),
-        Text.rich(TextSpan(
-          text: '28',
-          style: heading_(fontSize: size / 31, color: Colors.white),
-          children: <TextSpan>[
-            TextSpan(text: '°C', style: heading_(fontSize: size / 49)),
+            style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '28',
+              style: heading_(
+                fontSize: MediaQuery.of(context).size.width * 0.05,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).size.width *
+                    0.0085, // adjust top padding
+              ),
+              child: Text(
+                '°C',
+                style: heading_(
+                  fontSize:
+                      MediaQuery.of(context).size.width * 0.028, // smaller font
+                ),
+              ),
+            ),
           ],
-        )),
+        ),
       ],
     ),
   );
@@ -102,51 +139,53 @@ TextStyle subheading_({
   );
 }
 
-SizedBox mspacer({double height = 20, double width = 10}) {
-  return SizedBox(
-    height: height,
-    width: width,
-  );
+SizedBox mspacer({
+  BuildContext? context,
+  double? height,
+  double? width,
+}) {
+  double h = height ?? 5.0;
+  double w = width ?? 5.0;
+
+  if (context != null) {
+    final mediaQuery = MediaQuery.of(context);
+    h = height ?? mediaQuery.size.width * 0.95 / 10;
+    w = width ?? mediaQuery.size.height * 0.95 / 10;
+  }
+
+  return SizedBox(height: h, width: w);
 }
 
 Container main_container({
   required BuildContext context, // ✅ Add this line
   double borderradius = 60,
   double width = double.infinity,
-  String s = 'photo-1478760329108-5c3ed9d495a0.avif',
 }) {
   double size = MediaQuery.of(context).size.width * 0.95;
   return Container(
-    padding: EdgeInsets.fromLTRB(20, 9, 30, 40),
+    padding: EdgeInsets.all(size / 20),
     decoration: BoxDecoration(
-      color: Color(0xFF243B48).withOpacity(0.6),
-      image: DecorationImage(
-        opacity: 1,
-        image: AssetImage('images/$s'),
-        fit: BoxFit.cover,
-      ),
+      color: Color(0XFFBABABA).withOpacity(0.1),
       borderRadius: BorderRadius.circular(borderradius),
     ),
     width: size,
     height: size, //
     child: Stack(
       children: [
-        // Lottie.asset('assets/animations/New_Lottie_Animation_Recreated.json',
-        //     fit: BoxFit.cover),
         Transform(
           alignment: Alignment.center,
           transform: Matrix4.rotationY(3.1416), // π radians = 180 degrees
           child: Lottie.asset(
               'assets/animations/Animation - 1743712287353 (1).json',
               fit: BoxFit.fill,
-              height: size / 2.8),
+              height: size / 3),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Image.asset(
@@ -159,72 +198,81 @@ Container main_container({
                   repeat: true,
                   width: size / 3.5,
                 ),
-                CircleAvatar(
-                  radius: size / 16,
-                  backgroundColor: Appcolors.black_color,
-                  child: Icon(
-                    size: size / 15,
-                    Icons.search,
-                    color: Colors.white,
-                  ),
-                )
               ],
             ),
-            Text.rich(TextSpan(
-              text: '28',
-              style: subheading_(fontSize: size / 8, color: Colors.white),
-              children: <TextSpan>[
-                TextSpan(
-                    text: '°C',
-                    style: TextStyle(
-                      fontSize: size / 12,
-                      fontFamily: 'Montserrat',
-                      color: Colors.white,
-                    )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '28',
+                  style: heading_(
+                    fontSize: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.width *
+                        0.03, // adjust top padding
+                  ),
+                  child: Text(
+                    '°C',
+                    style: heading_(
+                      fontSize: MediaQuery.of(context).size.width *
+                          0.06, // smaller font
+                    ),
+                  ),
+                ),
               ],
-            )),
+            ),
             Row(
               children: [
                 Image.asset(
-                  'images/storm (1).png',
+                  'images/vecteezy_3d-illustration-of-cloud_18780213.png',
                   width: size / 14,
                 ),
-                Text(
-                  'Rainy Storm Clouds',
-                  style: subheading_(fontSize: size / 25),
-                )
+                mspacer(width: size / 65),
+                Text('Rainy Storm Clouds',
+                    style: heading_(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400,
+                        fontSize: size / 25)),
               ],
             ),
-            mspacer(height: 5),
+            mspacer(),
             Divider(
-              height: size / 70,
-              color: Colors.grey.shade800,
+              thickness: size / 4000,
+              color: Colors.white,
             ),
-            mspacer(height: 5),
+            mspacer(),
             Row(
               children: [
                 Icon(
                   Icons.location_on_outlined,
-                  color: Colors.grey.shade600,
+                  color: Colors.white,
                   size: size / 18,
                 ),
                 Text(
                   'Florida, US',
-                  style: subheading_(fontSize: size / 25),
+                  style: subheading_(
+                      fontWeight: FontWeight.w400, fontSize: size / 25),
                 )
               ],
             ),
+            mspacer(),
             Row(
               children: [
                 Icon(
                   Icons.calendar_month,
-                  color: Colors.grey.shade600,
+                  color: Colors.white,
                   size: size / 18,
                 ),
                 Text(
                   ' 25 Feb, 2025 | 12:51 AM',
-                  style: subheading_(fontSize: size / 25),
-                )
+                  style: subheading_(
+                      fontWeight: FontWeight.w400, fontSize: size / 25),
+                ),
+                mspacer(height: size / 10),
               ],
             ),
           ],
@@ -241,29 +289,42 @@ Container seven_days_cont(BuildContext context) {
         EdgeInsets.fromLTRB(size / 10000, size / 80, size / 10000, size / 80),
     width: double.infinity,
     decoration: BoxDecoration(
-        color: Colors.white10, borderRadius: BorderRadius.circular(size / 30)),
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(size / 20)),
     child: Padding(
       padding: EdgeInsets.all(5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
-            'images/storm (1).png',
+            'images/—Pngtree—sunny icon_4499465 - Copy.png',
             width: size / 10,
           ),
-          Text.rich(TextSpan(
-            text: '28',
-            style: subheading_(fontSize: size / 14, color: Colors.white),
-            children: <TextSpan>[
-              TextSpan(
-                  text: '°C',
-                  style: TextStyle(
-                    fontSize: size / 22,
-                    fontFamily: 'Montserrat',
-                    color: Colors.white,
-                  )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '28',
+                style: heading_(
+                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.width *
+                      0.0085, // adjust top padding
+                ),
+                child: Text(
+                  '°C',
+                  style: heading_(
+                    fontSize: MediaQuery.of(context).size.width *
+                        0.028, // smaller font
+                  ),
+                ),
+              ),
             ],
-          )),
+          ),
           Text(
             '25 July',
             style: subheading_(fontSize: size / 22),
@@ -282,43 +343,29 @@ Container main_container2({
   required BuildContext context, // ✅ Add this line
   double borderradius = 60,
   double width = double.infinity,
-  Color color = Colors.white,
-  String s = 'photo-1478760329108-5c3ed9d495a0.avif',
 }) {
   double size = MediaQuery.of(context).size.width * 0.95;
   return Container(
-    padding: EdgeInsets.fromLTRB(size / 30, size / 30, size / 30, size / 30),
+    padding: EdgeInsets.all(size / 30),
     decoration: BoxDecoration(
-      color: color,
-      image: DecorationImage(
-        image: AssetImage('images/$s'),
-        fit: BoxFit.cover,
-      ),
+      color: Color(0XFFBABABA).withOpacity(0.1),
       borderRadius: BorderRadius.circular(size / 7),
     ),
     width: size,
     height: size, //
     child: Stack(
       children: [
-        // Transform(
-        //   alignment: Alignment.center,
-        //   transform: Matrix4.rotationY(3.1416), // π radians = 180 degrees
-        //   child: Lottie.asset(
-        //       'assets/animations/Animation - 1743712287353 (1).json',
-        //       fit: BoxFit.fill,
-        //       width: 20000,
-        //       height: 250),
-        // ),
         Scrollbar(
           thumbVisibility: true,
           thickness: 3,
           radius: Radius.circular(size / 20),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 110),
+            padding: EdgeInsets.fromLTRB(0, size / 35, 0, 110),
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
+                  mspacer(),
                   seven_days_cont(context),
                   seven_days_cont(context),
                   seven_days_cont(context),
@@ -341,7 +388,7 @@ Container main_container2({
                 EdgeInsets.fromLTRB(size / 20, size / 20, size / 15, size / 20),
             alignment: Alignment.bottomCenter,
             decoration: BoxDecoration(
-              color: Colors.white24,
+              color: Colors.white.withOpacity(0.1),
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(borderradius / 7),
                 topLeft: Radius.circular(borderradius / 7),
@@ -354,7 +401,7 @@ Container main_container2({
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/storm (1).png',
+                  'images/vecteezy_3d-illustration-of-cloud_18780213.png',
                   width: size / 5,
                 ),
                 mspacer(width: size / 30),
@@ -403,7 +450,7 @@ Container sub_conatiner(
         // image:
         //     DecorationImage(image: AssetImage('images/$s'), fit: BoxFit.cover),
 
-        color: Color(0xFF243B48).withOpacity(0.6),
+        color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.circular(size / 7)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -420,7 +467,9 @@ Container sub_conatiner(
                   bottomLeft: Radius.circular(size / 18),
                   bottomRight: Radius.circular(size / 18),
                 ),
-                color: Colors.black.withOpacity(0.4),
+                color: Colors.transparent,
+                // color: Colors.white.withOpacity(0.1),
+                //color: Colors.black.withOpacity(0.3),
               ),
               width: double.infinity,
               height: size / 2,
@@ -437,7 +486,9 @@ Container sub_conatiner(
                 bottomLeft: Radius.circular(size / 18),
                 bottomRight: Radius.circular(size / 18),
               ),
-              color: Colors.black.withOpacity(0.4),
+
+              color: Colors.white.withOpacity(0.1),
+              //color: Colors.black.withOpacity(0.3),
             ),
             width: double.infinity,
             height: size / 3.5,
@@ -465,7 +516,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
 
             Text(
@@ -484,7 +535,7 @@ Widget getlowcontdata(
           children: [
             Icon(
               Icons.water_drop_outlined,
-              color: Colors.grey.shade400,
+              color: Colors.white,
               size: size / 20,
             ),
             Text(
@@ -492,7 +543,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 35,
                   fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
@@ -511,7 +562,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
             Row(
               children: [
@@ -541,7 +592,7 @@ Widget getlowcontdata(
           children: [
             Icon(
               Icons.remove_red_eye_outlined,
-              color: Colors.grey.shade400,
+              color: Colors.white,
               size: size / 20,
             ),
             Text(
@@ -549,7 +600,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 35,
                   fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
@@ -568,7 +619,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
             Row(
               children: [
@@ -598,7 +649,7 @@ Widget getlowcontdata(
               style: subheading_(
                   fontSize: size / 35,
                   fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
@@ -623,11 +674,11 @@ Widget getupcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
-        Lottie.asset('assets/animations/Wind status.json', width: size / 8),
+        Lottie.asset('assets/animations/wwwwwi.json', width: size / 4.5),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -646,15 +697,15 @@ Widget getupcontdata(
                   style: subheading_(
                       fontSize: size / 30,
                       fontWeight: FontWeight.w900,
-                      color: Colors.grey.shade400),
+                      color: Colors.white),
                 ),
               ],
             ),
             Text(
               '5:01 AM',
               style: subheading_(
-                  color: Colors.grey.shade400,
-                  fontSize: size / 30,
+                  color: Colors.white,
+                  fontSize: size / 25,
                   fontWeight: FontWeight.bold),
             )
           ],
@@ -675,7 +726,7 @@ Widget getupcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
@@ -696,9 +747,9 @@ Widget getupcontdata(
             Text(
               'uv',
               style: subheading_(
-                  fontSize: size / 30,
+                  fontSize: size / 25,
                   fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
@@ -717,7 +768,7 @@ Widget getupcontdata(
               style: subheading_(
                   fontSize: size / 27,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade400),
+                  color: Colors.white),
             ),
           ],
         ),
