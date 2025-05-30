@@ -10,15 +10,15 @@ class PremiumDrawer extends StatelessWidget {
     double size = MediaQuery.of(context).size.width;
 
     return Drawer(
-      backgroundColor: const Color(0xFF02101B),
+      backgroundColor: Color(0xFF071324),
       child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF02101B),
-              Color(0xFF000F18),
+              Color(0xFF071324),
+              Color(0xFF071324),
             ],
           ),
         ),
@@ -35,26 +35,29 @@ class PremiumDrawer extends StatelessWidget {
                   children: [
                     mspacer(height: size / 10),
                     Padding(
-                      padding: EdgeInsets.all(size / 35),
+                      padding: EdgeInsets.fromLTRB(
+                          size / 35, size / 35, size / 35, 0),
                       child: Text(
-                        'Weathery Pro',
+                        'drizzle',
                         style: TextStyle(
+                          fontFamily: 'Montserrat',
                           color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w300,
+                          fontSize: size / 20,
+                          fontWeight: FontWeight.bold,
                           letterSpacing: 1.2,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(size / 35),
+                      padding: EdgeInsets.fromLTRB(
+                          size / 35, 0, size / 35, size / 35),
                       child: Text(
-                        'Premium Weather Experience',
+                        'A Weather Experience',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                        ),
+                            color: Colors.white,
+                            fontSize: size / 40,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: 'Montserrat'),
                       ),
                     ),
                     _buildDrawerItem(
@@ -86,7 +89,6 @@ class PremiumDrawer extends StatelessWidget {
                         // Navigate to trends screen
                       },
                     ),
-
                     _buildDrawerItem(
                       icon: Icons.map_outlined,
                       title: 'Sunrise & Sunset',
@@ -95,16 +97,14 @@ class PremiumDrawer extends StatelessWidget {
                         // Navigate to map screen
                       },
                     ),
-
                     const Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Divider(
-                        color: Colors.white24,
+                        color: Colors.white38,
                         thickness: 0.5,
                       ),
                     ),
-
                     _buildDrawerItem(
                       icon: Icons.settings_outlined,
                       title: 'Settings',
@@ -162,50 +162,19 @@ class PremiumDrawer extends StatelessWidget {
                         // Show rating dialog
                       },
                     ),
-
-                    const Spacer(),
-
-                    // Premium Badge
-                    Container(
-                      margin: const EdgeInsets.all(20),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 16),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.amber.shade400,
-                            Colors.orange.shade600,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.amber.withOpacity(0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.workspace_premium,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 8),
-                          const Text(
-                            'Premium Active',
-                            style: TextStyle(
+                    mspacer(height: size / 3),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '~Made by KeshavG_8605✨',
+                          style: TextStyle(
+                              fontFamily: 'Montserrat',
                               color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                              fontSize: size / 35),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),
@@ -232,7 +201,7 @@ class PremiumDrawer extends StatelessWidget {
           ),
           child: Icon(
             icon,
-            color: Colors.white.withOpacity(0.8),
+            color: Color(0xff84FFF5).withOpacity(0.8),
             size: 22,
           ),
         ),

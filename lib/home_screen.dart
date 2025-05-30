@@ -53,7 +53,7 @@ class _HomescreenState extends State<Homescreen> {
             ),
           ),
         ]),
-        backgroundColor: Color(0xFF02101B),
+        backgroundColor: Color(0xFF071324),
       ),
       drawer: PremiumDrawer(),
       backgroundColor: Color(0XFF000F18),
