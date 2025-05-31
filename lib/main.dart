@@ -4,7 +4,7 @@ import 'weather_functions.dart';
 import 'package:geolocator/geolocator.dart';
 import 'UV_indexchart.dart';
 import 'package:http/http.dart';
-
+import 'Wind_speedchart.dart';
 import 'Details_Screen.dart';
 
 void main() {
@@ -46,7 +46,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DetailsScreen(), // Initial screen
+
+      home: Homescreen(), // Initial screen
     );
   }
 }

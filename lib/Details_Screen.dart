@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:weather_app/colors_.dart';
 import 'package:weather_app/functions_uses.dart';
 import 'UV_indexchart.dart';
+import 'package:weather_app/Wind_speedchart.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -228,22 +229,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     )),
                 mspacer(height: size / 25),
                 Container(
-                    padding: EdgeInsets.all(10),
+                    padding:
+                        EdgeInsets.fromLTRB(size / 55, size / 35, size / 55, 0),
                     width: size,
-                    height: 500,
+                    height: size * 1.3,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(size / 13),
                         color: Color(0xff02060C).withOpacity(0.5)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('UV Index Chart',
+                        Text('Wind Speed Chart (Km/hr)',
                             style: heading_(
                                 fontSize: size / 26,
+                                fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w100)),
                         SizedBox(
-                          height: 450, // or any suitable height
-                          child: UvIndexChartWidget(),
+                          height: size * 1.20, // or any suitable height
+                          child: Windspeed_chart(),
                         ),
                       ],
                     )),
