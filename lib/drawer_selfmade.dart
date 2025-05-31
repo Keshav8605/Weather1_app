@@ -7,191 +7,174 @@ class PremiumDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width;
-
     return Drawer(
-      backgroundColor: Color(0xFF071324),
-      child: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF071324),
-              Color(0xFF071324),
-            ],
-          ),
-        ),
-        child: Column(
-          children: [
-            // Header Section
+      backgroundColor: const Color(0xFF071324),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          double width = constraints.maxWidth;
+          double height = constraints.maxHeight;
 
-            // Menu Items
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(size / 55),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    mspacer(height: size / 10),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          size / 35, size / 35, size / 35, 0),
-                      child: Text(
-                        'drizzle',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontSize: size / 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          size / 35, 0, size / 35, size / 35),
-                      child: Text(
-                        'A Weather Experience',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size / 40,
-                            fontWeight: FontWeight.w300,
-                            fontFamily: 'Montserrat'),
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.home_outlined,
-                      title: 'Home',
-                      onTap: () => Navigator.pop(context),
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.location_on_outlined,
-                      title: 'Find City Weather',
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Navigate to locations screen
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.radar_outlined,
-                      title: 'UV Safety Index',
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Navigate to radar screen
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.trending_up_outlined,
-                      title: 'Wind Status',
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Navigate to trends screen
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.map_outlined,
-                      title: 'Sunrise & Sunset',
-                      onTap: () {
-                        Navigator.pop(context);
-                        // Navigate to map screen
-                      },
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Divider(
-                        color: Colors.white38,
-                        thickness: 0.5,
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.settings_outlined,
-                      title: 'Settings',
-                      onTap: () {
-                        Navigator.pop(context);
-                        Flushbar(
-                          barBlur: 20,
-                          margin: EdgeInsets.all(size / 35),
-                          borderRadius: BorderRadius.circular(size / 20),
-                          title: "⚙️Coming Soon!",
-                          backgroundColor: Colors.grey.withOpacity(0.1),
-                          message:
-                              "Settings will be ready shortly.\nThanks for your patience!😊",
-                          duration: Duration(seconds: 2),
-                          flushbarPosition: FlushbarPosition.TOP,
-                        ).show(context);
-                        // Navigate to settings screen
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.help_outline,
-                      title: 'Help & Support',
-                      onTap: () {
-                        Navigator.pop(context);
-                        Flushbar(
-                          barBlur: 20,
-                          margin: EdgeInsets.all(size / 35),
-                          borderRadius: BorderRadius.circular(size / 20),
-                          title: "🛠️Coming Soon!",
-                          backgroundColor: Colors.grey.withOpacity(0.1),
-                          message:
-                              "Help & Support is on its way.\nWe’ll be here for you soon!🤗",
-                          duration: Duration(seconds: 2),
-                          flushbarPosition: FlushbarPosition.TOP,
-                        ).show(context);
-                        // Navigate to help screen
-                      },
-                    ),
-                    _buildDrawerItem(
-                      icon: Icons.star_outline,
-                      title: 'Rate App',
-                      onTap: () {
-                        Navigator.pop(context);
-                        Flushbar(
-                          barBlur: 20,
-                          margin: EdgeInsets.all(size / 35),
-                          borderRadius: BorderRadius.circular(size / 20),
-                          title: "✨Coming Soon!",
-                          backgroundColor: Colors.grey.withOpacity(0.1),
-                          message:
-                              "Rating the app will be possible very soon.\nHang tight!💫",
-                          duration: Duration(seconds: 2),
-                          flushbarPosition: FlushbarPosition.TOP,
-                        ).show(context);
-                        // Show rating dialog
-                      },
-                    ),
-                    mspacer(height: size / 3),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '~Made by KeshavG_8605✨',
-                          style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Colors.white,
-                              fontSize: size / 35),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+          return Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF071324),
+                  Color(0xFF071324),
+                ],
               ),
             ),
-          ],
-        ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(width * 0.018),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        mspacer(height: height * 0.05),
+                        Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: width * 0.03),
+                          child: Text(
+                            'drizzle',
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              color: Colors.white,
+                              fontSize: width * 0.08,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(
+                              width * 0.03, 4, width * 0.03, width * 0.04),
+                          child: Text(
+                            'A Weather App',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: width * 0.04,
+                              fontWeight: FontWeight.w300,
+                              fontFamily: 'Montserrat',
+                            ),
+                          ),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.home_outlined,
+                          title: 'Home',
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.location_on_outlined,
+                          title: 'Find City Weather',
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.radar_outlined,
+                          title: 'UV Safety Index',
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.trending_up_outlined,
+                          title: 'Wind Status',
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.map_outlined,
+                          title: 'Sunrise & Sunset',
+                          onTap: () => Navigator.pop(context),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Divider(
+                            color: Colors.white38,
+                            thickness: 0.5,
+                          ),
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.settings_outlined,
+                          title: 'Settings',
+                          onTap: () {
+                            Navigator.pop(context);
+                            showInfoFlushbar(
+                              context,
+                              width,
+                              "⚙️Coming Soon!",
+                              "Settings will be ready shortly.\nThanks for your patience!😊",
+                            );
+                          },
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.help_outline,
+                          title: 'Help & Support',
+                          onTap: () {
+                            Navigator.pop(context);
+                            showInfoFlushbar(
+                              context,
+                              width,
+                              "🛠️Coming Soon!",
+                              "Help & Support is on its way.\nWe’ll be here for you soon!🤗",
+                            );
+                          },
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.star_outline,
+                          title: 'Rate App',
+                          onTap: () {
+                            Navigator.pop(context);
+                            showInfoFlushbar(
+                              context,
+                              width,
+                              "✨Coming Soon!",
+                              "Rating the app will be possible very soon.\nHang tight!💫",
+                            );
+                          },
+                        ),
+                        mspacer(height: height * 0.08),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '~Made by KeshavG_8605✨',
+                              style: TextStyle(
+                                fontFamily: 'Montserrat',
+                                color: Colors.white,
+                                fontSize: width * 0.04,
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
 
   Widget _buildDrawerItem({
+    required double width,
     required IconData icon,
     required String title,
     required VoidCallback onTap,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: ListTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
@@ -201,15 +184,15 @@ class PremiumDrawer extends StatelessWidget {
           ),
           child: Icon(
             icon,
-            color: Color(0xff84FFF5).withOpacity(0.8),
-            size: 22,
+            color: const Color(0xff84FFF5).withOpacity(0.8),
+            size: width * 0.055,
           ),
         ),
         title: Text(
           title,
           style: TextStyle(
             color: Colors.white.withOpacity(0.9),
-            fontSize: 16,
+            fontSize: width * 0.042,
             fontWeight: FontWeight.w400,
             letterSpacing: 0.5,
           ),
@@ -217,7 +200,7 @@ class PremiumDrawer extends StatelessWidget {
         trailing: Icon(
           Icons.arrow_forward_ios,
           color: Colors.white.withOpacity(0.4),
-          size: 14,
+          size: width * 0.035,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -227,5 +210,19 @@ class PremiumDrawer extends StatelessWidget {
         splashColor: Colors.white.withOpacity(0.1),
       ),
     );
+  }
+
+  void showInfoFlushbar(
+      BuildContext context, double width, String title, String message) {
+    Flushbar(
+      barBlur: 20,
+      margin: EdgeInsets.all(width * 0.04),
+      borderRadius: BorderRadius.circular(width * 0.05),
+      title: title,
+      backgroundColor: Colors.grey.withOpacity(0.1),
+      message: message,
+      duration: const Duration(seconds: 2),
+      flushbarPosition: FlushbarPosition.TOP,
+    ).show(context);
   }
 }

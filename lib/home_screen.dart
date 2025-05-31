@@ -85,6 +85,7 @@ class _HomescreenState extends State<Homescreen> {
                   'Today\'s Forecast',
                   style: subheading_(),
                 ),
+                mspacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
