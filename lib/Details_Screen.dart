@@ -432,7 +432,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Container(
                     padding: EdgeInsets.all(size / 35),
                     width: size,
-                    height: size * 1.3,
+                    height: size * 1.45,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(size / 13),
                         color: Color(0xff02060C).withOpacity(0.5)),
@@ -449,6 +449,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       ],
                     )),
+                mspacer(height: size / 4)
               ],
             ),
           )
