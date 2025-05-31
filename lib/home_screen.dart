@@ -5,6 +5,7 @@ import 'Details_Screen.dart';
 import 'colors_.dart';
 import 'drawer_selfmade.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:http/http.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -14,6 +15,10 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  void api_call_function() async {
+    const url = '';
+  }
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width * 0.95;
@@ -31,15 +36,15 @@ class _HomescreenState extends State<Homescreen> {
           Row(
             children: [
               Image(
-                image: AssetImage('images/weather_5464289.png'),
-                width: size / 10,
+                image: AssetImage('images/applogo.png'),
+                width: size / 20,
               ),
               SizedBox(
                 width: size / 80,
               ),
               Text(
-                'Weathery',
-                style: heading_(fontWeight: FontWeight.w100),
+                'drizzle',
+                style: heading_(fontWeight: FontWeight.w900),
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app/colors_.dart';
 import 'package:weather_app/functions_uses.dart';
+import 'UV_indexchart.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -225,6 +226,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                       ],
                     )),
+                mspacer(height: size / 25),
+                Container(
+                    padding: EdgeInsets.all(10),
+                    width: size,
+                    height: 500,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(size / 13),
+                        color: Color(0xff02060C).withOpacity(0.5)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('UV Index Chart',
+                            style: heading_(
+                                fontSize: size / 26,
+                                fontWeight: FontWeight.w100)),
+                        SizedBox(
+                          height: 450, // or any suitable height
+                          child: UvIndexChartWidget(),
+                        ),
+                      ],
+                    )),
                 mspacer(height: size / 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -403,7 +425,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         )
                       ],
                     )),
-                mspacer(height: size),
+                mspacer(height: size / 25),
+                Container(
+                    padding: EdgeInsets.all(size / 35),
+                    width: size,
+                    height: size * 1.3,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(size / 13),
+                        color: Color(0xff02060C).withOpacity(0.5)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('UV Index Chart',
+                            style: heading_(
+                                fontSize: size / 26,
+                                fontWeight: FontWeight.w100)),
+                        SizedBox(
+                          height: 450, // or any suitable height
+                          child: UvIndexChartWidget(),
+                        ),
+                      ],
+                    )),
               ],
             ),
           )
