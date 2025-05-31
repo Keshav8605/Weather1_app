@@ -81,6 +81,7 @@ class _login_screenState extends State<login_screen> {
                 ),
                 mspacer(),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       focusColor: Colors.lightBlueAccent,
                       focusedBorder: OutlineInputBorder(
