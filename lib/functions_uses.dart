@@ -157,7 +157,11 @@ SizedBox mspacer({
 }
 
 Container main_container({
-  required BuildContext context, // ✅ Add this line
+  required String currentdate,
+  String currenttime = '12:51 AM',
+  String currenttemp = '100',
+  String currentWCname = 'Sunny',
+  required BuildContext context,
   double borderradius = 60,
   double width = double.infinity,
 }) {
@@ -356,7 +360,6 @@ Container main_container2({
     child: Stack(
       children: [
         Scrollbar(
-          thumbVisibility: true,
           thickness: 3,
           radius: Radius.circular(size / 20),
           child: Padding(

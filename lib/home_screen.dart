@@ -6,9 +6,11 @@ import 'colors_.dart';
 import 'drawer_selfmade.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:http/http.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Homescreen extends StatefulWidget {
-  const Homescreen({super.key});
+  final Map<String, dynamic>? weatherData;
+  const Homescreen({super.key, this.weatherData});
 
   @override
   State<Homescreen> createState() => _HomescreenState();
@@ -21,6 +23,9 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
+    final current = widget.weatherData!['days'][0];
+    String todaysdate = current['datetime'];
+
     double size = MediaQuery.of(context).size.width * 0.95;
     return Scaffold(
       appBar: AppBar(
@@ -93,7 +98,8 @@ class _HomescreenState extends State<Homescreen> {
                       MaterialPageRoute(builder: (context) => DetailsScreen()),
                     );
                   },
-                  child: main_container(context: context),
+                  child:
+                      main_container(context: context, currentdate: todaysdate),
                 ),
                 mspacer(),
                 mspacer(height: size / 20),

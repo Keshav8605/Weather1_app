@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
-import 'package:http/http.dart';
+
+import 'package:http/http.dart' as http;
 
 Future<Position?> get_lat_long() async {
   bool service = await Geolocator.isLocationServiceEnabled();
@@ -26,13 +27,21 @@ Future<Position?> get_lat_long() async {
   return currpositon;
 }
 
-fetchWeather() async {
+Future<Map<String, dynamic>?> fetchWeather() async {
   Position? position = await get_lat_long();
-  if (position == null) return;
+  if (position == null) return null;
   double lat = position.latitude;
   double long = position.longitude;
-  const apikey = '944699415e36a3b7ad16e9c46cb9997c';
+  const apikey = 'JGWM8ZX7DJBH53T3D5VPXX6W5';
 
   String url =
-      'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$long&exclude={part}&appid=$apikey';
+      'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$lat,$long/next7days?unitGroup=metric&include=hours&key=$apikey&contentType=json';
+  final uri = Uri.parse(url);
+  final response = await http.get(uri);
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    print("API Call Success ✅");
+    return data;
+  }
+  return null;
 }

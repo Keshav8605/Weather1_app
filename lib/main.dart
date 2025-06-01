@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
-import 'weather_functions.dart';
+import 'weather_functions.dart'; // Your fetchWeather()
 import 'package:geolocator/geolocator.dart';
-import 'login_screen.dart';
-import 'UV_indexchart.dart';
-import 'package:http/http.dart';
-import 'Wind_speedchart.dart';
-import 'Details_Screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,35 +15,61 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Map<String, dynamic>? weatherdata;
+  bool isloading = true;
+  String? error;
+
   @override
-  void initstate() {
+  void initState() {
     super.initState();
-    fetchWeather();
+    loadweather(); // call async function here
   }
 
-  String url = '';
-  fetchWeather() async {
-    Position? position = await get_lat_long();
-    if (position == null) return;
-    double lat = position.latitude;
-    double long = position.longitude;
-    const apikey = '944699415e36a3b7ad16e9c46cb9997c';
-
-    setState(() {
-      url =
-          'https://api.openweathermap.org/data/3.0/onecall?lat=$lat&lon=$long&exclude={part}&appid=$apikey';
-    });
+  Future<void> loadweather() async {
+    try {
+      final data = await fetchWeather();
+      if (data != null) {
+        setState(() {
+          weatherdata = data;
+          isloading = false;
+        });
+      } else {
+        setState(() {
+          error = 'Unable to fetch data!';
+          isloading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        error = 'Error: $e';
+        isloading = false;
+      });
+    }
   }
-
-  final uri = Uri.parse('url');
-  //final response = http.get(uri);
 
   @override
   Widget build(BuildContext context) {
+    if (isloading) {
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        ),
+      );
+    }
+
+    if (error != null) {
+      return MaterialApp(
+        home: Scaffold(
+          body: Center(child: Text(error!)),
+        ),
+      );
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      home: login_screen(), // Initial screen
+      home: Homescreen(
+          weatherData:
+          weatherdata), // pass weatherData if Homescreen expects it
     );
   }
 }
