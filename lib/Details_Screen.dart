@@ -317,7 +317,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('WIND SPEED',
+                      Text('DAY DURATION',
                           style: heading_(
                               fontSize: size / 26,
                               fontWeight: FontWeight.w100)),

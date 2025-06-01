@@ -23,43 +23,61 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    loadweather();
+    startLoadingProcess();
+  }
+
+  void startLoadingProcess() async {
+    // Start both: data loading and minimum 5-second timer
+    final dataFuture = loadweather();
+    final timerFuture = Future.delayed(Duration(seconds: 5));
+
+    // Wait for both to complete
+    await Future.wait([dataFuture, timerFuture]);
+
+    // Close loading screen only after both conditions are met
+    setState(() {
+      isloading = false;
+    });
   }
 
   Future<void> loadweather() async {
     try {
       final data = await fetchWeather();
       if (data != null) {
-        setState(() {
-          weatherdata = data;
-          isloading = false;
-        });
+        weatherdata = data;
       } else {
-        setState(() {
-          error = 'Unable to fetch data!';
-          isloading = false;
-        });
+        error = 'Unable to fetch data!';
       }
     } catch (e) {
-      setState(() {
-        error = 'Error: $e';
-        isloading = false;
-      });
+      error = 'Error: $e';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     if (isloading) {
+      double size = MediaQuery.of(context).size.width * 0.95;
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           backgroundColor: Color(0xff081324),
-          body: Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Colors.lightBlueAccent,
-            color: Colors.white24,
-          )),
+          body: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: AssetImage('images/2.jpg'))),
+            child: Center(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      backgroundColor: Colors.white24,
+                      color: Colors.lightBlueAccent,
+                    ),
+                    SizedBox(height: size / 3),
+                  ]),
+            ),
+          ),
         ),
       );
     }

@@ -189,7 +189,7 @@ Container main_container({
           mainlottie!,
           fit: BoxFit.contain,
           repeat: true,
-          width: size / 3.5,
+          width: size / 2.5,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -515,7 +515,7 @@ Container sub_conatiner(
         // image:
         //     DecorationImage(image: AssetImage('images/$s'), fit: BoxFit.cover),
 
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.black.withOpacity(0.5),
         borderRadius: BorderRadius.circular(size / 7)),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -769,12 +769,25 @@ Widget getupcontdata(
                 ),
               ],
             ),
-            Text(
-              '5:01 AM',
-              style: subheading_(
-                  color: Colors.white,
-                  fontSize: size / 25,
-                  fontWeight: FontWeight.bold),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '(Last updated)',
+                  style: subheading_(
+                      color: Colors.white,
+                      fontSize: size / 25,
+                      fontWeight: FontWeight.w100),
+                ),
+                Text(
+                  '5:01 AM',
+                  style: subheading_(
+                      color: Colors.white,
+                      fontSize: size / 25,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             )
           ],
         ),

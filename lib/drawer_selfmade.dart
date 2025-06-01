@@ -35,8 +35,8 @@ class PremiumDrawer extends StatelessWidget {
                       children: [
                         mspacer(height: height * 0.05),
                         Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: width * 0.03),
+                          padding: EdgeInsets.fromLTRB(
+                              width * 0.1, 0, width * 0.03, 0),
                           child: Text(
                             'drizzle',
                             style: TextStyle(
@@ -50,7 +50,7 @@ class PremiumDrawer extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.fromLTRB(
-                              width * 0.03, 4, width * 0.03, width * 0.04),
+                              width * 0.1, 0, width * 0.03, 0),
                           child: Text(
                             'A Weather App',
                             style: TextStyle(
