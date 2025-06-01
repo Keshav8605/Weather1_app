@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
-import 'weather_functions.dart'; // Your fetchWeather()
+import 'weather_functions.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    loadweather(); // call async function here
+    loadweather();
   }
 
   Future<void> loadweather() async {
@@ -50,9 +51,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (isloading) {
-      return const MaterialApp(
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          body: Center(child: CircularProgressIndicator()),
+          backgroundColor: Color(0xff081324),
+          body: Center(
+              child: CircularProgressIndicator(
+            backgroundColor: Colors.lightBlueAccent,
+            color: Colors.white24,
+          )),
         ),
       );
     }
@@ -69,7 +76,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Homescreen(
           weatherData:
-          weatherdata), // pass weatherData if Homescreen expects it
+              weatherdata), // pass weatherData if Homescreen expects it
     );
   }
 }

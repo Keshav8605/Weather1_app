@@ -7,6 +7,8 @@ import 'drawer_selfmade.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:http/http.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
+import 'package:geocoding/geocoding.dart';
 
 class Homescreen extends StatefulWidget {
   final Map<String, dynamic>? weatherData;
@@ -17,25 +19,144 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
-  void api_call_function() async {
-    const url = '';
+  @override
+  void initState() {
+    super.initState();
+    loadcityname();
+  }
+
+  String currentlocation = '';
+  Future<String> getCityName(double lat, double lon) async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
+
+      if (placemarks.isNotEmpty) {
+        final Placemark place = placemarks.first;
+        String city = place.locality ?? 'Unknown City';
+        String country = place.country ?? 'Unknown Country';
+        return '$city,$country';
+      } else {
+        return 'Unknown City';
+      }
+    } catch (e) {
+      print("Error in getCityName: $e");
+      return 'Error getting location';
+    }
+  }
+
+  void loadcityname() async {
+    String city = await getCityName(
+      widget.weatherData!['latitude'].toDouble(),
+      widget.weatherData!['longitude'].toDouble(),
+    );
+    setState(() {
+      currentlocation = city;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    Future<String> getCityName(double lat, double lon) async {
+      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
+      if (placemarks.isNotEmpty) {
+        final place = placemarks[0];
+        return '${place.locality}, ${place.administrativeArea}';
+      }
+      return 'Unknown location';
+    }
+
+    String taarikdata(int epochcode) {
+      return DateFormat('d MMM, yyyy')
+          .format(DateTime.fromMillisecondsSinceEpoch(epochcode * 1000));
+    }
+
+    String taarikdatawithoutyr(int epochcode) {
+      return DateFormat('d MMM')
+          .format(DateTime.fromMillisecondsSinceEpoch(epochcode * 1000));
+    }
+
+    String timedata(int epochcode) {
+      return DateFormat('hh:mm a')
+          .format(DateTime.fromMillisecondsSinceEpoch(epochcode * 1000));
+    }
+
+    String getDayFromEpoch(int epoch) {
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(epoch * 1000);
+      return DateFormat('EEEE').format(date);
+    }
+
+    Map<String, String> getweathericon = {
+      'Clear': 'assets/animations/clearsun.json',
+      'Partially cloudy': 'assets/animations/clodysuncoming.json',
+      'else': 'assets/animations/Animation - 1743775948554.json',
+      'Clear*': 'assets/animations/whiteclouds.json',
+      'Partially cloudy*': 'assets/animations/whiteclouds.json',
+      'else*': 'assets/animations/Animation - 1743712287353 (1).json',
+    };
+
+    String? getlottiefile(String condition, bool main) {
+      String key = main ? '$condition*' : condition;
+      return getweathericon[key] ?? getweathericon[main ? 'else*' : 'else'];
+    }
+
     final current = widget.weatherData!['days'][0];
+    int epochcode = current['datetimeEpoch'];
     String todaysdate = current['datetime'];
+    String currentdate = taarikdata(epochcode);
+    String currenttime = timedata(epochcode);
+    String currenttemp = current['temp'].toString();
+    String currentWCname = current['conditions'];
+
+    final datas = widget.weatherData!['days'];
+    List<Map<String, String>> a = [
+      {
+        'temp': datas[0]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[0]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[0]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[1]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[1]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[1]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[2]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[2]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[2]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[3]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[3]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[3]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[4]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[4]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[4]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[5]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[5]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[5]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+      {
+        'temp': datas[6]['temp'].toString(),
+        'date': taarikdatawithoutyr(datas[6]['datetimeEpoch']),
+        'day': getDayFromEpoch(datas[6]['datetimeEpoch']),
+        'icon': 'images/sunny_icon.png',
+      },
+    ];
 
     double size = MediaQuery.of(context).size.width * 0.95;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
-
-        // leading: Icon(
-        //   Icons.menu,
-        //   color: Colors.grey.shade500,
-        // ),
-
         title:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(
@@ -98,8 +219,16 @@ class _HomescreenState extends State<Homescreen> {
                       MaterialPageRoute(builder: (context) => DetailsScreen()),
                     );
                   },
-                  child:
-                      main_container(context: context, currentdate: todaysdate),
+                  child: main_container(
+                    backgroundlottie: getlottiefile(currentWCname, true),
+                    mainlottie: getlottiefile(currentWCname, false),
+                    currentlocation: currentlocation,
+                    currenttemp: currenttemp,
+                    context: context,
+                    currentdate: currentdate,
+                    currenttime: currenttime,
+                    currentWCname: currentWCname,
+                  ),
                 ),
                 mspacer(),
                 mspacer(height: size / 20),
@@ -118,6 +247,7 @@ class _HomescreenState extends State<Homescreen> {
                   },
                   child: main_container2(
                     context: context,
+                    Map_name: a,
                   ),
                 ),
                 mspacer(),

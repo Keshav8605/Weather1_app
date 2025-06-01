@@ -158,6 +158,9 @@ SizedBox mspacer({
 
 Container main_container({
   required String currentdate,
+  String? backgroundlottie,
+  String? mainlottie,
+  String currentlocation = 'Unknown Location',
   String currenttime = '12:51 AM',
   String currenttemp = '100',
   String currentWCname = 'Sunny',
@@ -179,51 +182,39 @@ Container main_container({
         Transform(
           alignment: Alignment.center,
           transform: Matrix4.rotationY(3.1416), // π radians = 180 degrees
-          child: Lottie.asset(
-              'assets/animations/Animation - 1743712287353 (1).json',
-              fit: BoxFit.fill,
-              height: size / 3),
+          child: Lottie.asset(backgroundlottie!,
+              fit: BoxFit.fill, height: size / 2),
+        ),
+        Lottie.asset(
+          mainlottie!,
+          fit: BoxFit.contain,
+          repeat: true,
+          width: size / 3.5,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Image.asset(
-                //   'images/weather_5464289.png',
-                //   width: 80,
-                // ),
-                Lottie.asset(
-                  'assets/animations/Animation - 1743775948554.json',
-                  fit: BoxFit.contain,
-                  repeat: true,
-                  width: size / 3.5,
-                ),
-              ],
-            ),
+            mspacer(height: size / 3),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '28',
+                  '$currenttemp',
                   style: heading_(
-                    fontSize: MediaQuery.of(context).size.width * 0.15,
+                    fontSize: MediaQuery.of(context).size.width * 0.10,
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width *
-                        0.03, // adjust top padding
+                    top: MediaQuery.of(context).size.width * 0.02,
                   ),
                   child: Text(
                     '°C',
                     style: heading_(
                       fontSize: MediaQuery.of(context).size.width *
-                          0.06, // smaller font
+                          0.05, // smaller font
                     ),
                   ),
                 ),
@@ -236,19 +227,19 @@ Container main_container({
                   width: size / 14,
                 ),
                 mspacer(width: size / 65),
-                Text('Rainy Storm Clouds',
+                Text('$currentWCname',
                     style: heading_(
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: size / 25)),
               ],
             ),
-            mspacer(),
+            mspacer(height: size / 160),
             Divider(
-              thickness: size / 4000,
+              thickness: size / 3200,
               color: Colors.white,
             ),
-            mspacer(),
+            mspacer(height: size / 160),
             Row(
               children: [
                 Icon(
@@ -257,7 +248,7 @@ Container main_container({
                   size: size / 18,
                 ),
                 Text(
-                  'Florida, US',
+                  currentlocation,
                   style: subheading_(
                       fontWeight: FontWeight.w400, fontSize: size / 25),
                 )
@@ -272,7 +263,7 @@ Container main_container({
                   size: size / 18,
                 ),
                 Text(
-                  ' 25 Feb, 2025 | 12:51 AM',
+                  ' $currentdate | $currenttime',
                   style: subheading_(
                       fontWeight: FontWeight.w400, fontSize: size / 25),
                 ),
@@ -286,7 +277,13 @@ Container main_container({
   );
 }
 
-Container seven_days_cont(BuildContext context) {
+Container seven_days_cont({
+  required BuildContext context,
+  String temp = '28',
+  String date = '25 July',
+  String day = 'Tuesday',
+  String icon = 'images/—Pngtree—sunny icon_4499465 - Copy.png',
+}) {
   double size = MediaQuery.of(context).size.width * 0.95;
   return Container(
     margin:
@@ -301,7 +298,7 @@ Container seven_days_cont(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
-            'images/—Pngtree—sunny icon_4499465 - Copy.png',
+            icon,
             width: size / 10,
           ),
           Row(
@@ -309,7 +306,7 @@ Container seven_days_cont(BuildContext context) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '28',
+                temp,
                 style: heading_(
                   fontSize: MediaQuery.of(context).size.width * 0.06,
                 ),
@@ -330,13 +327,17 @@ Container seven_days_cont(BuildContext context) {
             ],
           ),
           Text(
-            '25 July',
+            date,
             style: subheading_(fontSize: size / 22),
           ),
-          Text(
-            'Tuesday',
-            style: subheading_(fontSize: size / 22),
-          ),
+          Container(
+            width: size / 5,
+            child: Text(
+              day,
+              style:
+                  subheading_(fontSize: size / 31, fontWeight: FontWeight.bold),
+            ),
+          )
         ],
       ),
     ),
@@ -344,7 +345,8 @@ Container seven_days_cont(BuildContext context) {
 }
 
 Container main_container2({
-  required BuildContext context, // ✅ Add this line
+  required BuildContext context,
+  List<Map<String, String>> Map_name = const [{}],
   double borderradius = 60,
   double width = double.infinity,
 }) {
@@ -369,13 +371,48 @@ Container main_container2({
               child: Column(
                 children: [
                   mspacer(),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
-                  seven_days_cont(context),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[0]['temp']!,
+                    date: Map_name[0]['date']!,
+                    day: Map_name[0]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[1]['temp']!,
+                    date: Map_name[1]['date']!,
+                    day: Map_name[1]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[2]['temp']!,
+                    date: Map_name[2]['date']!,
+                    day: Map_name[2]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[3]['temp']!,
+                    date: Map_name[3]['date']!,
+                    day: Map_name[3]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[4]['temp']!,
+                    date: Map_name[4]['date']!,
+                    day: Map_name[4]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[5]['temp']!,
+                    date: Map_name[5]['date']!,
+                    day: Map_name[5]['day']!,
+                  ),
+                  seven_days_cont(
+                    context: context,
+                    temp: Map_name[6]['temp']!,
+                    date: Map_name[6]['date']!,
+                    day: Map_name[6]['day']!,
+                  ),
                   mspacer(height: size / 30),
                 ],
               ),
@@ -416,16 +453,41 @@ Container main_container2({
                       'Tomorrow',
                       style: subheading_(
                         fontWeight: FontWeight.bold,
+                        color: Colors.lightBlueAccent,
                         fontSize: size / 25,
                       ),
                     ),
-                    Text(
-                      '22°C',
-                      style: subheading_(fontSize: size / 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          Map_name[1]['temp']!,
+                          style: heading_(
+                            color: Colors.lightBlueAccent,
+                            fontSize: size / 25,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.width *
+                                0.005, // adjust top padding
+                          ),
+                          child: Text(
+                            '°C',
+                            style: heading_(
+                              color: Colors.lightBlueAccent,
+                              fontSize: MediaQuery.of(context).size.width *
+                                  0.028, // smaller font
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Text(
-                      'Tuesday',
-                      style: subheading_(fontSize: size / 25),
+                      Map_name[1]['day']!,
+                      style: subheading_(
+                          color: Colors.lightBlueAccent, fontSize: size / 25),
                     ),
                   ],
                 )
@@ -662,7 +724,10 @@ Widget getlowcontdata(
 }
 
 Widget getupcontdata(
-    {String head = 'Wind Status', required BuildContext context}) {
+    {String head = 'Wind Status',
+    required BuildContext context,
+    String windspeed = '03',
+    String time = '5:01 AM'}) {
   double size = MediaQuery.of(context).size.width * 0.95;
   if (head == 'Wind Status') {
     return Column(
