@@ -3,8 +3,11 @@ import 'home_screen.dart';
 import 'weather_functions.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
+import 'weather_controller.dart';
 
 void main() {
+  Get.put(WeatherController());
   runApp(const MyApp());
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app/functions_uses.dart';
+import 'package:weather_app/weather_functions.dart';
 import 'Details_Screen.dart';
 import 'colors_.dart';
 import 'drawer_selfmade.dart';
@@ -9,6 +10,8 @@ import 'package:http/http.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:get/get.dart';
+import 'weather_controller.dart';
 
 class Homescreen extends StatefulWidget {
   final Map<String, dynamic>? weatherData;
@@ -86,17 +89,42 @@ class _HomescreenState extends State<Homescreen> {
     }
 
     Map<String, String> getweathericon = {
-      'Clear': 'assets/animations/clearsun.json',
-      'Partially cloudy': 'assets/animations/clodysuncoming.json',
-      'else': 'assets/animations/Animation - 1743775948554.json',
-      'Clear*': 'assets/animations/whiteclouds.json',
-      'Partially cloudy*': 'assets/animations/whiteclouds.json',
-      'else*': 'assets/animations/Animation - 1743712287353 (1).json',
+      'clear': 'assets/animations/clearsun.json',
+      'cloud': 'assets/animations/clodysuncoming.json',
+      'default': 'assets/animations/Animation - 1743775948554.json',
+      'clear*': 'assets/animations/whiteclouds.json',
+      'cloud*': 'assets/animations/whiteclouds.json',
+      'default*': 'assets/animations/Animation - 1743712287353 (1).json',
     };
 
     String? getlottiefile(String condition, bool main) {
-      String key = main ? '$condition*' : condition;
-      return getweathericon[key] ?? getweathericon[main ? 'else*' : 'else'];
+      final lowercaseCondition = condition.toLowerCase();
+
+      if (lowercaseCondition.contains('cloud')) {
+        return getweathericon[main ? 'cloud*' : 'cloud'];
+      } else if (lowercaseCondition.contains('clear') ||
+          lowercaseCondition.contains('sun')) {
+        return getweathericon[main ? 'clear*' : 'clear'];
+      } else {
+        return getweathericon[main ? 'default*' : 'default'];
+      }
+    }
+
+    String convertTo12HourFormat(String time24) {
+      List<String> parts = time24.split(':');
+      if (parts.length < 2) return time24; // invalid format fallback
+
+      int hour = int.tryParse(parts[0]) ?? 0;
+      int minute = int.tryParse(parts[1]) ?? 0;
+
+      String period = (hour >= 12) ? "PM" : "AM";
+
+      int hour12 = hour % 12;
+      if (hour12 == 0) hour12 = 12;
+
+      String minuteStr = minute.toString().padLeft(2, '0');
+
+      return "$hour12:$minuteStr $period";
     }
 
     final current = widget.weatherData!['days'][0];
@@ -106,6 +134,31 @@ class _HomescreenState extends State<Homescreen> {
     String currenttime = timedata(epochcode);
     String currenttemp = current['temp'].toString();
     String currentWCname = current['conditions'];
+    String currentwindspeed = current['windspeed'].toString();
+    String currenthumidity = current['humidity'].toString();
+    String curruvindex = current['uvindex'].toString();
+    String currvisibility = current['visibility'].toString();
+    String sunrise = current['sunrise'].toString();
+    String sunset = current['sunset'].toString();
+    String sunrisetime = convertTo12HourFormat(sunrise);
+    String sunsettime = convertTo12HourFormat(sunset);
+
+    //data controller mein insert kro
+
+    final WeatherController weatherController = Get.find<WeatherController>();
+    weatherController.setEpochCode(epochcode);
+    weatherController.setTodaysDate(todaysdate);
+    weatherController.setCurrentDate(currentdate);
+    weatherController.setCurrentTime(currenttime);
+    weatherController.setCurrentTemp(currenttemp);
+    weatherController.setCurrentWCName(currentWCname);
+    weatherController.setCurrentWindSpeed(currentwindspeed);
+    weatherController.setCurrentHumidity(currenthumidity);
+    weatherController.setCurrentUvIndex(curruvindex);
+    weatherController.setCurrentVisibility(currvisibility);
+    weatherController.setSunrise(sunrise);
+    weatherController.setSunset(sunset);
+    weatherController.setcurrentlocation(currentlocation);
 
     final datas = widget.weatherData!['days'];
     List<Map<String, String>> a = [

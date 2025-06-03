@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
+import 'weather_controller.dart';
 
 Future<Position?> get_lat_long() async {
   bool service = await Geolocator.isLocationServiceEnabled();
@@ -40,6 +42,9 @@ Future<Map<String, dynamic>?> fetchWeather() async {
   final response = await http.get(uri);
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
+    final controller = Get.find<WeatherController>();
+    controller.setWeatherData(data);
+
     print("API Call Success ✅");
     return data;
   }

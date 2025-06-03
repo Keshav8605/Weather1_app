@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'colors_.dart';
 import 'package:lottie/lottie.dart';
+import 'package:get/get.dart';
+import 'weather_controller.dart';
 
-Container hourly_forecastcont({
-  required BuildContext context,
-}) {
+final controller = Get.find<WeatherController>();
+
+Container hourly_forecastcont(
+    {required BuildContext context,
+    String conditionname = '',
+    String temp = '',
+    String time = ''}) {
   double size = MediaQuery.of(context).size.width * 0.95;
 
   return Container(
@@ -18,20 +24,20 @@ Container hourly_forecastcont({
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text('NOW',
+        Text(time,
             style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
           image: AssetImage('images/—Pngtree—sunny icon_4499465 - Copy.png'),
           width: size / 12,
         ),
-        Text('SUNNY',
+        Text(conditionname,
             style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '28',
+              temp,
               style: heading_(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
               ),
@@ -568,11 +574,17 @@ Container sub_conatiner(
 Widget getlowcontdata(
     {String head = 'Humidity', required BuildContext context}) {
   double size = MediaQuery.of(context).size.width * 0.95;
+
+  String humidity = controller.getCurrentHumidity.toString();
+  String visibility = controller.getCurrentVisibility.toString();
+  String currtemp = controller.getCurrentTemp.toString();
+
   if (head == 'Humidity') {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //if (head == 'Feels like') Icon(Icons.thermostat),
@@ -585,7 +597,7 @@ Widget getlowcontdata(
             ),
 
             Text(
-              '84%',
+              '$humidity%',
               style: subheading_(
                   fontSize: size / 12,
                   fontWeight: FontWeight.w900,
@@ -619,6 +631,7 @@ Widget getlowcontdata(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //if (head == 'Feels like') Icon(Icons.thermostat),
@@ -632,7 +645,7 @@ Widget getlowcontdata(
             Row(
               children: [
                 Text(
-                  '03',
+                  visibility,
                   style: subheading_(
                       fontSize: size / 12,
                       fontWeight: FontWeight.w900,
@@ -661,7 +674,7 @@ Widget getlowcontdata(
               size: size / 20,
             ),
             Text(
-              'Haze is affecting \nvisibility',
+              'Visibility reduced\ndue to haze or mist.',
               style: subheading_(
                   fontSize: size / 35,
                   fontWeight: FontWeight.w900,
@@ -676,6 +689,7 @@ Widget getlowcontdata(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //if (head == 'Feels like') Icon(Icons.thermostat),
@@ -694,7 +708,7 @@ Widget getlowcontdata(
                   color: Colors.white,
                 ),
                 Text(
-                  '42\u00B0',
+                  '$currtemp\u00B0',
                   style: subheading_(
                       fontSize: size / 12,
                       fontWeight: FontWeight.w900,
@@ -723,12 +737,16 @@ Widget getlowcontdata(
   }
 }
 
-Widget getupcontdata(
-    {String head = 'Wind Status',
-    required BuildContext context,
-    String windspeed = '03',
-    String time = '5:01 AM'}) {
+Widget getupcontdata({
+  String head = 'Wind Status',
+  required BuildContext context,
+}) {
   double size = MediaQuery.of(context).size.width * 0.95;
+  String currwindspeed = controller.currentWindSpeed.value.toString();
+  String currtime = controller.currentTime.value.toString();
+  String uvindex = controller.getCurrentUvIndex.toString();
+  String sunrisetime = controller.sunrise.value.toString();
+  String sunsettime = controller.sunset.value.toString();
   if (head == 'Wind Status') {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -753,7 +771,7 @@ Widget getupcontdata(
             Row(
               children: [
                 Text(
-                  '03',
+                  currwindspeed,
                   style: subheading_(
                       fontSize: size / 12,
                       fontWeight: FontWeight.w900,
@@ -781,7 +799,7 @@ Widget getupcontdata(
                       fontWeight: FontWeight.w100),
                 ),
                 Text(
-                  '5:01 AM',
+                  currtime,
                   style: subheading_(
                       color: Colors.white,
                       fontSize: size / 25,
@@ -818,7 +836,7 @@ Widget getupcontdata(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '5.50',
+              uvindex,
               style: subheading_(
                   fontSize: size / 12,
                   fontWeight: FontWeight.w900,
@@ -874,7 +892,7 @@ Widget getupcontdata(
                       color: Colors.yellow),
                 ),
                 Text(
-                  '5:50 AM',
+                  sunrisetime,
                   style: subheading_(
                       fontSize: size / 28,
                       fontWeight: FontWeight.w900,
@@ -898,7 +916,7 @@ Widget getupcontdata(
                       color: Colors.yellow),
                 ),
                 Text(
-                  '5:30 PM',
+                  sunsettime,
                   style: subheading_(
                       fontSize: size / 28,
                       fontWeight: FontWeight.w900,

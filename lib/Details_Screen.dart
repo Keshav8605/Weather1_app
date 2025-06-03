@@ -4,6 +4,8 @@ import 'package:weather_app/colors_.dart';
 import 'package:weather_app/functions_uses.dart';
 import 'UV_indexchart.dart';
 import 'package:weather_app/Wind_speedchart.dart';
+import 'weather_controller.dart';
+import 'package:get/get.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({super.key});
@@ -15,6 +17,74 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<WeatherController>();
+
+    String getDayDuration(String sunrise, String sunset) {
+      final sunriseTime = DateTime.parse('2000-01-01T$sunrise');
+      final sunsetTime = DateTime.parse('2000-01-01T$sunset');
+
+      final duration = sunsetTime.difference(sunriseTime);
+
+      final hours = duration.inHours;
+      final minutes = duration.inMinutes.remainder(60);
+
+      return '${hours}h ${minutes}m';
+    }
+
+    String risklevelfunc(String uvindex) {
+      double a = double.parse(uvindex);
+      if (a <= 2) {
+        return "Low";
+      } else if (a <= 5) {
+        return "Moderate";
+      } else if (a <= 7) {
+        return "High";
+      } else if (a <= 10) {
+        return "Very High";
+      } else {
+        return "Extreme";
+      }
+    }
+
+    String windDirectionFromDegrees(double degrees) {
+      // Normalize degrees to 0-360
+      degrees = degrees % 360;
+
+      if (degrees >= 337.5 || degrees < 22.5) {
+        return "N";
+      } else if (degrees >= 22.5 && degrees < 67.5) {
+        return "NE";
+      } else if (degrees >= 67.5 && degrees < 112.5) {
+        return "E";
+      } else if (degrees >= 112.5 && degrees < 157.5) {
+        return "SE";
+      } else if (degrees >= 157.5 && degrees < 202.5) {
+        return "S";
+      } else if (degrees >= 202.5 && degrees < 247.5) {
+        return "SW";
+      } else if (degrees >= 247.5 && degrees < 292.5) {
+        return "W";
+      } else if (degrees >= 292.5 && degrees < 337.5) {
+        return "NW";
+      } else {
+        return "Unknown";
+      }
+    }
+
+    String location = controller.getcurrentlocation.toString();
+    String date = controller.getCurrentDate.toString();
+    String temp = controller.getCurrentTemp.toString();
+    String condition = controller.getCurrentWCName.toString();
+    String windspeed = controller.getCurrentWindSpeed.toString();
+    String winddirection = controller.data['days'][0]['winddir'].toString();
+    double winddirectiondegrees = double.parse(winddirection);
+    String winddirectionname = windDirectionFromDegrees(winddirectiondegrees);
+    String sunrise = controller.sunset.toString();
+    String sunset = controller.sunset.toString();
+    //String dayduration = getDayDuration(sunrise, sunset).toString();
+    String uvindex = controller.getCurrentUvIndex.toString();
+    String risklevel = risklevelfunc(uvindex).toString();
+
     double size = MediaQuery.of(context).size.width * 0.95;
     return Scaffold(
       backgroundColor: Color(0XFF000F18),
@@ -49,10 +119,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     )
                   ],
                 ),
-                Text('KOTA, RAJASTHAN', style: heading_(fontSize: size / 25)),
+                Text(location, style: heading_(fontSize: size / 25)),
                 mspacer(),
                 Text(
-                  'TODAY 5 MAY, 2025',
+                  'TODAY $date',
                   style:
                       TextStyle(fontSize: size / 27, color: Color(0XFFA3A3A3)),
                 ),
@@ -62,7 +132,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '28',
+                      temp,
                       style: heading_(
                         fontSize: MediaQuery.of(context).size.width * 0.15,
                       ),
@@ -83,7 +153,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ],
                 ),
                 mspacer(height: size / 13),
-                Text('MOSTLY SUNNY',
+                Text(condition.toUpperCase(),
                     style: heading_(
                         fontWeight: FontWeight.bold, fontSize: size / 25)),
                 mspacer(height: size / 20),
@@ -187,7 +257,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               textBaseline: TextBaseline.alphabetic,
                               children: [
-                                Text('25',
+                                Text(windspeed,
                                     style: heading_(
                                         fontSize: size / 10,
                                         color: Color(0xffC4FFFE),
@@ -216,7 +286,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   'images/pngegg (5).png',
                                   width: size / 10,
                                 ),
-                                Text('NE',
+                                Text(winddirectionname,
                                     style: heading_(
                                         fontSize: size / 10,
                                         color: Color(0xffC4FFFE),
@@ -281,7 +351,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     fontWeight: FontWeight.w100)),
                             Lottie.asset('assets/animations/sunrise.json',
                                 width: size / 6, fit: BoxFit.cover),
-                            Text('7:00 AM',
+                            Text('$sunrise',
                                 style: heading_(
                                     fontSize: size / 18,
                                     fontWeight: FontWeight.w900)),
@@ -361,31 +431,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Container(
                     padding: EdgeInsets.all(10),
                     width: size,
-                    height: size / 2.5,
+                    height: size / 3,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(size / 13),
                         color: Color(0xff838383).withOpacity(0.2)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.white,
-                              size: size / 25,
-                            ),
-                            mspacer(width: 2),
-                            Text('GUMANPURA',
-                                style: heading_(fontSize: size / 26)),
-                          ],
-                        ),
-                        Text(
-                          '2:00 PM',
-                          style: TextStyle(
-                              fontSize: size / 25, color: Color(0XFFA3A3A3)),
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     // Icon(
+                        //     //   Icons.location_on,
+                        //     //   color: Colors.white,
+                        //     //   size: size / 25,
+                        //     // ),
+                        //     mspacer(width: 2),
+                        //     // Text(location,
+                        //     //     style: heading_(fontSize: size / 26)),
+                        //   ],
+                        // ),
+                        // Text(
+                        //   '2:00 PM',
+                        //   style: TextStyle(
+                        //       fontSize: size / 25, color: Color(0XFFA3A3A3)),
+                        // ),
                         mspacer(height: size / 25),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -398,7 +468,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     style: heading_(
                                         fontSize: size / 26,
                                         fontWeight: FontWeight.w100)),
-                                Text('25',
+                                Text(uvindex,
                                     style: heading_(
                                         fontSize: size / 10,
                                         color: Color(0xffC4FFFE),
@@ -416,7 +486,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         fontWeight: FontWeight.w100)),
                                 Padding(
                                   padding: EdgeInsets.all(size / 30),
-                                  child: Text('MODERATE',
+                                  child: Text(risklevel.toUpperCase(),
                                       style: heading_(
                                           fontSize: size / 25,
                                           color: Color(0xffC4FFFE),
