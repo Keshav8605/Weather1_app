@@ -71,7 +71,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       }
     }
 
-    String location = controller.getcurrentlocation.toString();
+    String location = controller.getcurrentlocation.toString().toUpperCase();
     String date = controller.getCurrentDate.toString();
     String temp = controller.getCurrentTemp.toString();
     String condition = controller.getCurrentWCName.toString();
