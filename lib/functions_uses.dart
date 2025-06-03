@@ -189,11 +189,12 @@ Container main_container({
           alignment: Alignment.center,
           transform: Matrix4.rotationY(3.1416), // π radians = 180 degrees
           child: Lottie.asset(backgroundlottie!,
-              fit: BoxFit.fill, height: size / 2),
+              reverse: true, repeat: true, fit: BoxFit.fill, height: size / 2),
         ),
         Lottie.asset(
           mainlottie!,
           fit: BoxFit.contain,
+          reverse: true,
           repeat: true,
           width: size / 2.5,
         ),

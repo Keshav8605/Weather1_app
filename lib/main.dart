@@ -87,6 +87,7 @@ class _MyAppState extends State<MyApp> {
 
     if (error != null) {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: Center(child: Text(error!)),
         ),
