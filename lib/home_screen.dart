@@ -14,21 +14,53 @@ import 'package:get/get.dart';
 import 'weather_controller.dart';
 
 class Homescreen extends StatefulWidget {
-  final Map<String, dynamic>? weatherData;
-  const Homescreen({super.key, this.weatherData});
+  const Homescreen({super.key});
 
   @override
   State<Homescreen> createState() => _HomescreenState();
 }
 
 class _HomescreenState extends State<Homescreen> {
+  Map<String, dynamic>? weatherdata;
+  bool isloading = true;
+  String? error;
+  String currentlocation = '';
+
   @override
   void initState() {
     super.initState();
-    loadcityname();
+    startLoadingProcess();
   }
 
-  String currentlocation = '';
+  void startLoadingProcess() async {
+    // Start both: data loading and minimum 5-second timer
+    final dataFuture = loadweather();
+    final timerFuture = Future.delayed(Duration(seconds: 5));
+
+    // Wait for both to complete
+    await Future.wait([dataFuture, timerFuture]);
+
+    // Close loading screen only after both conditions are met
+    setState(() {
+      isloading = false;
+    });
+  }
+
+  Future<void> loadweather() async {
+    try {
+      final data = await fetchWeather();
+      if (data != null) {
+        weatherdata = data;
+        // Load city name after weather data is available
+        loadcityname();
+      } else {
+        error = 'Unable to fetch data!';
+      }
+    } catch (e) {
+      error = 'Error: $e';
+    }
+  }
+
   Future<String> getCityName(double lat, double lon) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
@@ -48,26 +80,52 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   void loadcityname() async {
-    String city = await getCityName(
-      widget.weatherData!['latitude'].toDouble(),
-      widget.weatherData!['longitude'].toDouble(),
-    );
-    setState(() {
-      currentlocation = city;
-    });
+    if (weatherdata != null) {
+      String city = await getCityName(
+        weatherdata!['latitude'].toDouble(),
+        weatherdata!['longitude'].toDouble(),
+      );
+      setState(() {
+        currentlocation = city;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Future<String> getCityName(double lat, double lon) async {
-      List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
-      if (placemarks.isNotEmpty) {
-        final place = placemarks[0];
-        return '${place.locality}, ${place.administrativeArea}';
-      }
-      return 'Unknown location';
+    // Show loading screen
+    if (isloading) {
+      double size = MediaQuery.of(context).size.width * 0.95;
+      return Scaffold(
+        backgroundColor: Color(0xff081324),
+        body: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover, image: AssetImage('images/2.jpg'))),
+          child: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(
+                    backgroundColor: Colors.white24,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  SizedBox(height: size / 3),
+                ]),
+          ),
+        ),
+      );
     }
 
+    // Show error screen
+    if (error != null) {
+      return Scaffold(
+        body: Center(child: Text(error!)),
+      );
+    }
+
+    // Show main weather screen
     String taarikdata(int epochcode) {
       return DateFormat('d MMM, yyyy')
           .format(DateTime.fromMillisecondsSinceEpoch(epochcode * 1000));
@@ -127,7 +185,11 @@ class _HomescreenState extends State<Homescreen> {
       return "$hour12:$minuteStr $period";
     }
 
-    final current = widget.weatherData!['days'][0];
+    if (weatherdata == null || weatherdata!['days'] == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    final current = weatherdata!['days'][0];
     int epochcode = current['datetimeEpoch'];
     String todaysdate = current['datetime'];
     String currentdate = taarikdata(epochcode);
@@ -144,7 +206,6 @@ class _HomescreenState extends State<Homescreen> {
     String sunsettime = convertTo12HourFormat(sunset);
 
     //data controller mein insert kro
-
     final WeatherController weatherController = Get.find<WeatherController>();
     weatherController.setEpochCode(epochcode);
     weatherController.setTodaysDate(todaysdate);
@@ -160,7 +221,7 @@ class _HomescreenState extends State<Homescreen> {
     weatherController.setSunset(sunset);
     weatherController.setcurrentlocation(currentlocation);
 
-    final datas = widget.weatherData!['days'];
+    final datas = weatherdata!['days'];
     List<Map<String, String>> a = [
       {
         'temp': datas[0]['temp'].toString(),
@@ -320,7 +381,10 @@ class _HomescreenState extends State<Homescreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DetailsScreen()));
+                                  builder: (context) => DetailsScreen(
+                                        shouldscroll: true,
+                                        scrollby: 100000,
+                                      )));
                         },
                         child: sub_conatiner(
                           context: context,

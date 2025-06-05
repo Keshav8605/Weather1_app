@@ -14,6 +14,7 @@ class WeatherController extends GetxController {
   var sunrise = ''.obs;
   var sunset = ''.obs;
   var currentlocation = ''.obs;
+  var weatherday = ''.obs;
 
   // Observable map to hold complete weather data (keeping original functionality)
   var weatherData = <String, dynamic>{}.obs;
@@ -50,4 +51,5 @@ class WeatherController extends GetxController {
   void setSunrise(String value) => sunrise.value = value;
   void setSunset(String value) => sunset.value = value;
   void setcurrentlocation(String value) => currentlocation.value = value;
+
 }

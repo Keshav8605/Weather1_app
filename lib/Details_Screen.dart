@@ -8,13 +8,38 @@ import 'weather_controller.dart';
 import 'package:get/get.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  final bool shouldscroll;
+  final double scrollby;
+  const DetailsScreen(
+      {super.key, this.shouldscroll = false, this.scrollby = 0});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  final ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.shouldscroll) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(
+          widget.scrollby,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
+
+    @override
+    void dispose() {
+      _scrollController.dispose();
+      super.dispose();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<WeatherController>();

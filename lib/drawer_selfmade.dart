@@ -1,6 +1,8 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/functions_uses.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login_screen.dart';
 
 class PremiumDrawer extends StatelessWidget {
   const PremiumDrawer({super.key});
@@ -138,6 +140,23 @@ class PremiumDrawer extends StatelessWidget {
                               width,
                               "✨Coming Soon!",
                               "Rating the app will be possible very soon.\nHang tight!💫",
+                            );
+                          },
+                        ),
+                        _buildDrawerItem(
+                          width: width,
+                          icon: Icons.logout,
+                          title: 'Sign out',
+                          onTap: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            await prefs.setBool('isLoggedIn', false);
+
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => login_screen()),
+                              (route) => false,
                             );
                           },
                         ),
