@@ -1,8 +1,11 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/Details_Screen.dart';
 import 'package:weather_app/functions_uses.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 
 class PremiumDrawer extends StatelessWidget {
   const PremiumDrawer({super.key});
@@ -35,34 +38,44 @@ class PremiumDrawer extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        mspacer(height: height * 0.05),
+                        mspacer(height: height * 0.06),
                         Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              width * 0.1, 0, width * 0.03, 0),
-                          child: Text(
-                            'drizzle',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              color: Colors.white,
-                              fontSize: width * 0.08,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                            ),
+                          padding: EdgeInsets.symmetric(horizontal: width / 20),
+                          child: Row(
+                            children: [
+                              Image(
+                                image: AssetImage('images/applogo.png'),
+                                width: width / 10,
+                              ),
+                              mspacer(width: width / 30),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'drizzle',
+                                    style: TextStyle(
+                                      fontFamily: 'Montserrat',
+                                      color: Colors.white,
+                                      fontSize: width * 0.08,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.2,
+                                    ),
+                                  ),
+                                  Text(
+                                    'A Weather App',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * 0.04,
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: 'Montserrat',
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              width * 0.1, 0, width * 0.03, 0),
-                          child: Text(
-                            'A Weather App',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: width * 0.04,
-                              fontWeight: FontWeight.w300,
-                              fontFamily: 'Montserrat',
-                            ),
-                          ),
-                        ),
+                        mspacer(height: width / 10),
                         _buildDrawerItem(
                           width: width,
                           icon: Icons.home_outlined,
@@ -71,34 +84,28 @@ class PremiumDrawer extends StatelessWidget {
                         ),
                         _buildDrawerItem(
                           width: width,
-                          icon: Icons.location_on_outlined,
-                          title: 'Find City Weather',
-                          onTap: () => Navigator.pop(context),
-                        ),
-                        _buildDrawerItem(
-                          width: width,
                           icon: Icons.radar_outlined,
                           title: 'UV Safety Index',
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => Get.to(DetailsScreen()),
                         ),
                         _buildDrawerItem(
                           width: width,
                           icon: Icons.trending_up_outlined,
                           title: 'Wind Status',
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => Get.to(DetailsScreen()),
                         ),
                         _buildDrawerItem(
                           width: width,
                           icon: Icons.map_outlined,
                           title: 'Sunrise & Sunset',
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => Get.to(DetailsScreen()),
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: Divider(
                             color: Colors.white38,
-                            thickness: 0.5,
+                            thickness: 0.2,
                           ),
                         ),
                         _buildDrawerItem(
@@ -151,6 +158,17 @@ class PremiumDrawer extends StatelessWidget {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
                             await prefs.setBool('isLoggedIn', false);
+                            Fluttertoast.showToast(
+                              msg: "Signed out successfully!",
+                              toastLength:
+                                  Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
+                              gravity: ToastGravity
+                                  .BOTTOM, // can be TOP, CENTER, BOTTOM
+                              timeInSecForIosWeb: 2, // for iOS/Web
+                              backgroundColor: Color(0xFF071324),
+                              textColor: Colors.white,
+                              fontSize: 16.0,
+                            );
 
                             Navigator.pushAndRemoveUntil(
                               context,
@@ -160,7 +178,7 @@ class PremiumDrawer extends StatelessWidget {
                             );
                           },
                         ),
-                        mspacer(height: height * 0.08),
+                        mspacer(height: height * 0.05),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

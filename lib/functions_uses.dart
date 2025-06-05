@@ -27,7 +27,7 @@ Container hourly_forecastcont(
         Text(time,
             style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
-          image: AssetImage('images/—Pngtree—sunny icon_4499465 - Copy.png'),
+          image: AssetImage('images/sunnyicon.png'),
           width: size / 12,
         ),
         Text(conditionname,
@@ -270,7 +270,7 @@ Container main_container({
                   size: size / 18,
                 ),
                 Text(
-                  ' $currentdate | $currenttime',
+                  ' $currentdate',
                   style: subheading_(
                       fontWeight: FontWeight.w400, fontSize: size / 25),
                 ),
@@ -289,7 +289,7 @@ Container seven_days_cont({
   String temp = '28',
   String date = '25 July',
   String day = 'Tuesday',
-  String icon = 'images/—Pngtree—sunny icon_4499465 - Copy.png',
+  String icon = 'images/sunnyicon.png',
 }) {
   double size = MediaQuery.of(context).size.width * 0.95;
   return Container(

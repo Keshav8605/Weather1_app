@@ -183,8 +183,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         fontWeight: FontWeight.bold, fontSize: size / 25)),
                 mspacer(height: size / 20),
                 Image(
-                  image: AssetImage(
-                      'images/—Pngtree—sunny icon_4499465 - Copy.png'),
+                  image: AssetImage('images/sunnyicon.png'),
                   width: size / 3,
                 ),
                 mspacer(height: size / 20),

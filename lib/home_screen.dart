@@ -288,15 +288,6 @@ class _HomescreenState extends State<Homescreen> {
               ),
             ],
           ),
-          CircleAvatar(
-            radius: size / 16,
-            backgroundColor: Colors.white12,
-            child: Icon(
-              size: size / 15,
-              Icons.search,
-              color: Colors.white,
-            ),
-          ),
         ]),
         backgroundColor: Color(0xFF071324),
       ),
