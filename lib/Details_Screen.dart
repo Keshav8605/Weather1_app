@@ -6,6 +6,7 @@ import 'UV_indexchart.dart';
 import 'package:weather_app/Wind_speedchart.dart';
 import 'weather_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailsScreen extends StatefulWidget {
   final bool shouldscroll;
@@ -43,6 +44,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<WeatherController>();
+    int a = 0;
+
+    final data = controller.weatherData;
+    final currentdaydata = data['days'][0];
 
     String getDayDuration(String sunrise, String sunset) {
       final sunriseTime = DateTime.parse('2000-01-01T$sunrise');
@@ -109,6 +114,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
     //String dayduration = getDayDuration(sunrise, sunset).toString();
     String uvindex = controller.getCurrentUvIndex.toString();
     String risklevel = risklevelfunc(uvindex).toString();
+    int epochcode = controller.epochCode.toInt();
+
+    String getDayFromEpoch(int epoch) {
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(epoch * 1000);
+      return DateFormat('EEEE').format(date);
+    }
 
     double size = MediaQuery.of(context).size.width * 0.95;
     return Scaffold(
@@ -208,18 +219,246 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
-                            hourly_forecastcont(context: context),
+                            hourly_forecastcont(
+                              context: context,
+                              temp:
+                                  currentdaydata['hours'][a]['temp'].toString(),
+                              conditionname: currentdaydata['hours'][a]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 1]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 1]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 1]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 2]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 2]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 2]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 3]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 3]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 3]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 4]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 4]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 4]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 5]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 5]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 5]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 6]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 6]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 6]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 7]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 7]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 7]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 8]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 8]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 8]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 9]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 9]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 9]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 10]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 10]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 10]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 11]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 11]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 11]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 12]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 12]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 12]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 13]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 13]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 13]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 14]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 14]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 14]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 15]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 15]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 15]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 16]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 16]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 16]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 17]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 17]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 17]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 18]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 18]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 18]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 19]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 19]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 19]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 20]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 20]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 20]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 21]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 21]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 21]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 22]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 22]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 22]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
+                            hourly_forecastcont(
+                              context: context,
+                              temp: currentdaydata['hours'][a + 23]['temp']
+                                  .toString(),
+                              conditionname: currentdaydata['hours'][a + 23]
+                                  ['conditions'],
+                              time: currentdaydata['hours'][a + 23]['datetime']
+                                  .toString()
+                                  .substring(0, 5),
+                            ),
                           ],
                         ),
                       ),
@@ -235,13 +474,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
-                            weeky_forecastcont(context: context),
+                            weeky_forecastcont(
+                                context: context,
+                                day: getDayFromEpoch(
+                                    data['days'][1]['datetimeEpoch']),
+                                temp: data['days'][1]['temp'].toString(),
+                                condition:
+                                    (data['days'][1]['condiitons']).toString()),
                           ],
                         ),
                       )

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: isLoggedIn ? Homescreen() : login_screen(),
+      home: Homescreen(),
     );
   }
 }

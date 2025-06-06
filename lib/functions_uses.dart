@@ -31,7 +31,7 @@ Container hourly_forecastcont(
           width: size / 12,
         ),
         Text(conditionname,
-            style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
+            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +39,7 @@ Container hourly_forecastcont(
             Text(
               temp,
               style: heading_(
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.width * 0.04,
               ),
             ),
             Padding(
@@ -62,9 +62,11 @@ Container hourly_forecastcont(
   );
 }
 
-Container weeky_forecastcont({
-  required BuildContext context,
-}) {
+Container weeky_forecastcont(
+    {required BuildContext context,
+    String day = '',
+    String condition = '',
+    String temp = ''}) {
   double size = MediaQuery.of(context).size.width * 0.95;
 
   return Container(
@@ -78,21 +80,21 @@ Container weeky_forecastcont({
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text('NOW',
+        Text(day,
             style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
           image: AssetImage(
               'images/vecteezy_3d-illustration-of-cloud_18780213.png'),
           width: size / 12,
         ),
-        Text('SUNNY',
+        Text(condition,
             style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '28',
+              temp,
               style: heading_(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
               ),

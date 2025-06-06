@@ -55,6 +55,12 @@ dependencies:
 
 dev_dependencies:
   flutter_native_splash: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "images/square.png"
+  background_color: "#081424"
 
   flutter_test:
     sdk: flutter
