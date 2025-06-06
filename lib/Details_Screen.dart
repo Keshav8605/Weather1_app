@@ -48,6 +48,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     final data = controller.weatherData;
     final currentdaydata = data['days'][0];
+    final daysdata = data['days'];
+
+    String geticon(
+      final daysdata,
+      int index,
+    ) {
+      String wc = daysdata[0]['hours'][index]['conditions'].toString();
+
+      if (wc.contains('rain')) {
+        return 'images/rainicon.png';
+      } else if (wc.contains('cloud')) {
+        return 'images/cloudyicon.png';
+      } else {
+        return 'images/sunnyicon.png';
+      }
+    }
+
+    String geticonforweek(
+      final daysdata,
+      int index,
+    ) {
+      String wc = daysdata[index]['conditions'].toString();
+
+      if (wc.contains('rain')) {
+        return 'images/rainicon.png';
+      } else if (wc.contains('cloud')) {
+        return 'images/cloudyicon.png';
+      } else {
+        return 'images/sunnyicon.png';
+      }
+    }
 
     String getDayDuration(String sunrise, String sunset) {
       final sunriseTime = DateTime.parse('2000-01-01T$sunrise');
@@ -194,7 +225,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         fontWeight: FontWeight.bold, fontSize: size / 25)),
                 mspacer(height: size / 20),
                 Image(
-                  image: AssetImage('images/sunnyicon.png'),
+                  image: AssetImage(geticonforweek(daysdata, 0)),
                   width: size / 3,
                 ),
                 mspacer(height: size / 20),
@@ -228,6 +259,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 0),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -238,6 +270,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 1]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 1),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -248,6 +281,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 2]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 2),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -258,6 +292,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 3]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 3),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -268,6 +303,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 4]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 4),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -278,6 +314,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 5]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 5),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -288,6 +325,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 6]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 6),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -298,6 +336,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 7]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 7),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -308,6 +347,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 8]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 8),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -318,6 +358,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 9]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 9),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -328,6 +369,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 10]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 10),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -338,6 +380,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 11]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 11),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -348,6 +391,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 12]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 12),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -358,6 +402,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 13]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 13),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -368,6 +413,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 14]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 14),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -378,6 +424,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 15]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 15),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -388,6 +435,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 16]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 16),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -398,6 +446,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 17]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 17),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -408,6 +457,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 18]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 18),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -418,6 +468,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 19]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 19),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -428,6 +479,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 20]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 20),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -438,6 +490,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 21]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 21),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -448,6 +501,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 22]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 22),
                             ),
                             hourly_forecastcont(
                               context: context,
@@ -458,6 +512,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               time: currentdaydata['hours'][a + 23]['datetime']
                                   .toString()
                                   .substring(0, 5),
+                              icon: geticon(daysdata, 23),
                             ),
                           ],
                         ),
@@ -475,12 +530,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             weeky_forecastcont(
-                                context: context,
-                                day: getDayFromEpoch(
-                                    data['days'][1]['datetimeEpoch']),
-                                temp: data['days'][1]['temp'].toString(),
-                                condition:
-                                    (data['days'][1]['condiitons']).toString()),
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][0]['datetimeEpoch']),
+                              temp: data['days'][0]['temp'].toString(),
+                              condition:
+                                  (data['days'][0]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 0),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][1]['datetimeEpoch']),
+                              temp: data['days'][1]['temp'].toString(),
+                              condition:
+                                  (data['days'][1]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 1),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][2]['datetimeEpoch']),
+                              temp: data['days'][2]['temp'].toString(),
+                              condition:
+                                  (data['days'][2]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 2),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][3]['datetimeEpoch']),
+                              temp: data['days'][3]['temp'].toString(),
+                              condition:
+                                  (data['days'][3]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 3),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][4]['datetimeEpoch']),
+                              temp: data['days'][4]['temp'].toString(),
+                              condition:
+                                  (data['days'][4]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 4),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][5]['datetimeEpoch']),
+                              temp: data['days'][5]['temp'].toString(),
+                              condition:
+                                  (data['days'][5]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 5),
+                            ),
+                            weeky_forecastcont(
+                              context: context,
+                              day: getDayFromEpoch(
+                                  data['days'][6]['datetimeEpoch']),
+                              temp: data['days'][6]['temp'].toString(),
+                              condition:
+                                  (data['days'][6]['conditions']).toString(),
+                              icon: geticonforweek(daysdata, 6),
+                            ),
                           ],
                         ),
                       )

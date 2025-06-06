@@ -5,11 +5,28 @@ import 'package:get/get.dart';
 import 'weather_controller.dart';
 
 final controller = Get.find<WeatherController>();
+final data = controller.weatherData;
+final daysdata = data['days'];
+String geticonforweek(
+  final daysdata,
+  int index,
+) {
+  String wc = daysdata[index]['conditions'].toString();
+
+  if (wc.contains('rain')) {
+    return 'images/rainicon.png';
+  } else if (wc.contains('cloud')) {
+    return 'images/cloudyicon.png';
+  } else {
+    return 'images/sunnyicon.png';
+  }
+}
 
 Container hourly_forecastcont(
     {required BuildContext context,
     String conditionname = '',
     String temp = '',
+    String icon = '',
     String time = ''}) {
   double size = MediaQuery.of(context).size.width * 0.95;
 
@@ -27,11 +44,11 @@ Container hourly_forecastcont(
         Text(time,
             style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
         Image(
-          image: AssetImage('images/sunnyicon.png'),
+          image: AssetImage(icon),
           width: size / 12,
         ),
         Text(conditionname,
-            style: heading_(fontSize: size / 55, fontWeight: FontWeight.w400)),
+            style: heading_(fontSize: size / 55, fontWeight: FontWeight.bold)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,6 +83,7 @@ Container weeky_forecastcont(
     {required BuildContext context,
     String day = '',
     String condition = '',
+    String icon = '',
     String temp = ''}) {
   double size = MediaQuery.of(context).size.width * 0.95;
 
@@ -81,14 +99,13 @@ Container weeky_forecastcont(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(day,
-            style: heading_(fontSize: size / 30, fontWeight: FontWeight.bold)),
+            style: heading_(fontSize: size / 40, fontWeight: FontWeight.bold)),
         Image(
-          image: AssetImage(
-              'images/vecteezy_3d-illustration-of-cloud_18780213.png'),
+          image: AssetImage(icon),
           width: size / 12,
         ),
         Text(condition,
-            style: heading_(fontSize: size / 35, fontWeight: FontWeight.w400)),
+            style: heading_(fontSize: size / 55, fontWeight: FontWeight.bold)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +113,7 @@ Container weeky_forecastcont(
             Text(
               temp,
               style: heading_(
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.width * 0.04,
               ),
             ),
             Padding(
@@ -190,8 +207,8 @@ Container main_container({
         Transform(
           alignment: Alignment.center,
           transform: Matrix4.rotationY(3.1416), // π radians = 180 degrees
-          child: Lottie.asset(backgroundlottie!,
-              reverse: true, repeat: true, fit: BoxFit.fill, height: size / 2),
+          child: Lottie.asset('assets/animations/moven.json',
+              reverse: true, repeat: true, fit: BoxFit.fill, height: size / 3),
         ),
         Lottie.asset(
           mainlottie!,
@@ -385,42 +402,49 @@ Container main_container2({
                     temp: Map_name[0]['temp']!,
                     date: Map_name[0]['date']!,
                     day: Map_name[0]['day']!,
+                    icon: geticonforweek(daysdata, 0),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[1]['temp']!,
                     date: Map_name[1]['date']!,
                     day: Map_name[1]['day']!,
+                    icon: geticonforweek(daysdata, 1),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[2]['temp']!,
                     date: Map_name[2]['date']!,
                     day: Map_name[2]['day']!,
+                    icon: geticonforweek(daysdata, 2),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[3]['temp']!,
                     date: Map_name[3]['date']!,
                     day: Map_name[3]['day']!,
+                    icon: geticonforweek(daysdata, 3),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[4]['temp']!,
                     date: Map_name[4]['date']!,
                     day: Map_name[4]['day']!,
+                    icon: geticonforweek(daysdata, 4),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[5]['temp']!,
                     date: Map_name[5]['date']!,
                     day: Map_name[5]['day']!,
+                    icon: geticonforweek(daysdata, 5),
                   ),
                   seven_days_cont(
                     context: context,
                     temp: Map_name[6]['temp']!,
                     date: Map_name[6]['date']!,
                     day: Map_name[6]['day']!,
+                    icon: geticonforweek(daysdata, 6),
                   ),
                   mspacer(height: size / 30),
                 ],
@@ -450,7 +474,7 @@ Container main_container2({
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  'images/vecteezy_3d-illustration-of-cloud_18780213.png',
+                  geticonforweek(daysdata, 0),
                   width: size / 5,
                 ),
                 mspacer(width: size / 30),
@@ -858,6 +882,23 @@ Widget getupcontdata({
       ],
     );
   } else {
+    String convertTo12HourFormat(String time24) {
+      List<String> parts = time24.split(':');
+      if (parts.length < 2) return time24; // invalid format fallback
+
+      int hour = int.tryParse(parts[0]) ?? 0;
+      int minute = int.tryParse(parts[1]) ?? 0;
+
+      String period = (hour >= 12) ? "PM" : "AM";
+
+      int hour12 = hour % 12;
+      if (hour12 == 0) hour12 = 12;
+
+      String minuteStr = minute.toString().padLeft(2, '0');
+
+      return "$hour12:$minuteStr $period";
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -895,7 +936,7 @@ Widget getupcontdata({
                       color: Colors.yellow),
                 ),
                 Text(
-                  sunrisetime,
+                  convertTo12HourFormat(sunrisetime),
                   style: subheading_(
                       fontSize: size / 28,
                       fontWeight: FontWeight.w900,
@@ -919,7 +960,7 @@ Widget getupcontdata({
                       color: Colors.yellow),
                 ),
                 Text(
-                  sunsettime,
+                  convertTo12HourFormat(sunsettime),
                   style: subheading_(
                       fontSize: size / 28,
                       fontWeight: FontWeight.w900,

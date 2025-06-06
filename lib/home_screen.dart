@@ -221,6 +221,21 @@ class _HomescreenState extends State<Homescreen> {
     weatherController.setSunset(sunset);
     weatherController.setcurrentlocation(currentlocation);
 
+    String geticonforweek(
+      final daysdata,
+      int index,
+    ) {
+      String wc = daysdata[index]['conditions'].toString();
+
+      if (wc.contains('rain')) {
+        return 'images/rainicon.png';
+      } else if (wc.contains('cloud')) {
+        return 'images/cloudyicon.png';
+      } else {
+        return 'images/sunnyicon.png';
+      }
+    }
+
     final datas = weatherdata!['days'];
     List<Map<String, String>> a = [
       {

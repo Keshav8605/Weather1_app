@@ -2,6 +2,19 @@ import 'dart:async';
 import 'colors_.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'weather_controller.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+final controller = Get.find<WeatherController>();
+
+final data = controller.weatherData;
+final daysdata = data['days'];
+
+String getDayFromEpoch(int epoch) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(epoch * 1000);
+  return DateFormat('EEEE').format(date);
+}
 
 class Windspeed_chart extends StatefulWidget {
   Windspeed_chart({super.key});
@@ -87,7 +100,15 @@ class Windspeed_barchart extends State<Windspeed_chart> {
 
   List<BarChartGroupData> showingGroups(double barWidth) =>
       List.generate(7, (i) {
-        final windSpeeds = [30.0, 45.5, 27.0, 73.5, 49.0, 31.5, 36.5];
+        final windSpeeds = [
+          daysdata[0]['windspeed'].toDouble(),
+          daysdata[1]['windspeed'].toDouble(),
+          daysdata[2]['windspeed'].toDouble(),
+          daysdata[3]['windspeed'].toDouble(),
+          daysdata[4]['windspeed'].toDouble(),
+          daysdata[5]['windspeed'].toDouble(),
+          daysdata[6]['windspeed'].toDouble(),
+        ];
         return makeGroupData(i, windSpeeds[i],
             isTouched: i == touchedIndex, width: barWidth);
       });
@@ -205,7 +226,36 @@ class Windspeed_barchart extends State<Windspeed_chart> {
       fontSize: size / 35,
     );
 
-    const weekAbbr = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    final weekAbbr = [
+      getDayFromEpoch(daysdata[0]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[1]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[2]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[3]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[4]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[5]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+      getDayFromEpoch(daysdata[6]['datetimeEpoch'].toInt())
+          .toString()
+          .substring(0, 3)
+          .toUpperCase(),
+    ];
 
     String label = (value.toInt() >= 0 && value.toInt() < weekAbbr.length)
         ? weekAbbr[value.toInt()]

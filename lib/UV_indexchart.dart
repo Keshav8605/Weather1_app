@@ -1,6 +1,19 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/functions_uses.dart';
 import 'colors_.dart';
+import 'weather_controller.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+final controller = Get.find<WeatherController>();
+String getDayFromEpoch(int epoch) {
+  DateTime date = DateTime.fromMillisecondsSinceEpoch(epoch * 1000);
+  return DateFormat('EEEE').format(date);
+}
+
+final data = controller.weatherData;
+final daysdata = data['days'];
 
 class UvIndexChartWidget extends StatefulWidget {
   final Color? gradientColor1;
@@ -21,14 +34,14 @@ class UvIndexChartWidget extends StatefulWidget {
 }
 
 class _UvIndexChartWidgetState extends State<UvIndexChartWidget> {
-  final List<FlSpot> allSpots = const [
-    FlSpot(0, 1),
-    FlSpot(1, 2),
-    FlSpot(2, 5),
-    FlSpot(3, 3),
-    FlSpot(4, 4),
-    FlSpot(5, 4),
-    FlSpot(6, 11),
+  final List<FlSpot> allSpots = [
+    FlSpot(0, daysdata[0]['uvindex'].toDouble()),
+    FlSpot(1, daysdata[1]['uvindex'].toDouble()),
+    FlSpot(2, daysdata[2]['uvindex'].toDouble()),
+    FlSpot(3, daysdata[3]['uvindex'].toDouble()),
+    FlSpot(4, daysdata[4]['uvindex'].toDouble()),
+    FlSpot(5, daysdata[5]['uvindex'].toDouble()),
+    FlSpot(6, daysdata[6]['uvindex'].toDouble()),
   ];
 
   List<int> showingTooltipOnSpots = [];
@@ -54,25 +67,46 @@ class _UvIndexChartWidgetState extends State<UvIndexChartWidget> {
     String text;
     switch (value.toInt()) {
       case 0:
-        text = 'MON';
+        text = getDayFromEpoch(daysdata[0]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 1:
-        text = 'TUE';
+        text = getDayFromEpoch(daysdata[1]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 2:
-        text = 'WED';
+        text = getDayFromEpoch(daysdata[2]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 3:
-        text = 'THU';
+        text = getDayFromEpoch(daysdata[3]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 4:
-        text = 'FRI';
+        text = getDayFromEpoch(daysdata[4]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 5:
-        text = 'SAT';
+        text = getDayFromEpoch(daysdata[5]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       case 6:
-        text = 'SUN';
+        text = getDayFromEpoch(daysdata[6]['datetimeEpoch'].toInt())
+            .toString()
+            .substring(0, 3)
+            .toUpperCase();
         break;
       default:
         return Container();
