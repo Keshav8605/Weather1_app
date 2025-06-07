@@ -207,7 +207,7 @@ class Windspeed_barchart extends State<Windspeed_chart> {
                 ],
               );
             },
-            reservedSize: 40, // Reduced from size / 15 to avoid overflow
+            reservedSize: size / 10, // Reduced from size / 15 to avoid overflow
           ),
         ),
       ),

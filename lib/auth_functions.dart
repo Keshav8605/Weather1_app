@@ -49,6 +49,12 @@ signup(email, password, BuildContext context) async {
       email: email,
       password: password,
     );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Signed up successfully!'),
+        duration: Duration(seconds: 2),
+      ),
+    );
     print('------SUCCESS---------');
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {
