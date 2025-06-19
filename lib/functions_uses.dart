@@ -11,7 +11,7 @@ String geticonforweek(
   final daysdata,
   int index,
 ) {
-  String wc = daysdata[index]['conditions'].toString();
+  String wc = daysdata[index]['conditions'].toString().toLowerCase();
 
   if (wc.contains('rain')) {
     return 'images/rainicon.png';
@@ -249,7 +249,7 @@ Container main_container({
             Row(
               children: [
                 Image.asset(
-                  'images/vecteezy_3d-illustration-of-cloud_18780213.png',
+                  geticonforweek(daysdata, 0),
                   width: size / 14,
                 ),
                 mspacer(width: size / 65),
