@@ -56,7 +56,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     ) {
       String wc = daysdata[0]['hours'][index]['conditions'].toString();
 
-      if (wc.contains('rain')) {
+      if (wc.contains('rain')||wc.contains('overcast')) {
         return 'images/rainicon.png';
       } else if (wc.contains('cloud')) {
         return 'images/cloudyicon.png';
