@@ -13,7 +13,7 @@ String geticonforweek(
 ) {
   String wc = daysdata[index]['conditions'].toString().toLowerCase();
 
-  if (wc.contains('rain')) {
+  if (wc.contains('rain') || wc.contains('overcast')) {
     return 'images/rainicon.png';
   } else if (wc.contains('cloud')) {
     return 'images/cloudyicon.png';
@@ -325,7 +325,7 @@ Container seven_days_cont({
         children: [
           Image.asset(
             icon,
-            width: size / 10,
+            width: size / 14,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
